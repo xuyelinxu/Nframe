@@ -21,8 +21,8 @@ extern “C” {
 
 /** Exported typedef --------------------------------------------------------**/
 
-typedef NFMSG_PointHandle   intptr_t;       /**< \brief 监听者句柄 */
-typedef NFMSG_MsgID         intptr_t;       /**< \brief 消息ID */
+typedef NFMSG_PointHandle   uint32_t;       /**< \brief 监听者句柄 */
+typedef NFMSG_MsgID         uint32_t;       /**< \brief 消息ID */
 
 /** \brief  */
 typedef void (*NFMSG_MsgHandlerFunc)(NFMSG_PointHandle *Sender,
@@ -37,6 +37,10 @@ typedef enum {
     NFMSG_Priority_2,
     NFMSG_Priority_3,
     NFMSG_Priority_4,
+    NFMSG_Priority_5,
+    NFMSG_Priority_6,
+    NFMSG_Priority_7,
+    NFMSG_Priority_8,
 } NFMSG_Priority_Enum;
 
 /** Exported Functions -------------------------------------------------------*/

@@ -69,7 +69,7 @@ extern “C” {
  *  int element_a = NF_ARRAYEMENTS(a);    // element_a = 4
  * \endcode
  */
-#define NF_ARRAYEMENTS(array)   (sizeof (array) / sizeof ((array) [0]))
+#define NF_ARRAYEMENTS(array)       (sizeof (array) / sizeof ((array) [0]))
 
 /** \brief 把符号转换为字符串 */
 #define NF_STR(s)               #s
@@ -77,7 +77,7 @@ extern “C” {
 /** \brief 把宏展开后的结果转换为字符串 */
 #define NF_XSTR(s)              AM_STR(s)
 
-#define NF_MALLOC_VAR(vartype)  ( ( (vartype)* )( sizeof(vartype) ) )
+#define NF_MALLOC_VAR(vartype)  ((vartype*)(sizeof(vartype)))
 
 /** @} */
 

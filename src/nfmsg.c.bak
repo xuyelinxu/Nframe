@@ -20,16 +20,17 @@
 typedef struct {
      NFMSG_pfnHandlerDef   *pfnHandler;     /**< \brief 消息处理函数指针 */
      NFMSG_HandlerDef      *NextHandler;    /**< \brief 下一个消息处理 */
-} MsgHandlerDef;        /**< \brief 消息处理者 结构体定义 */
+} NFMSG_HandlerDef;        /**< \brief 消息处理 结构体定义 */
 
 typedef struct {
-    MsgHandlerDef   *Handler;    /**< \brief 消息处理器 */
-} PointDef;                /**< \brief 消息点 结构体定义 */
+    NFMSG_HandlerDef   *Handler;    /**< \brief 消息处理器 */
+} NFMSG_PointDef;                /**< \brief 消息监听者 结构体定义 */
 
 /** Private define ----------------------------------------------------------**/
 
 /** Private macro -----------------------------------------------------------**/
 /** Private variables -------------------------------------------------------**/
+
 
 /** Extern variables --------------------------------------------------------**/
 /** Private function prototypes ---------------------------------------------**/
@@ -43,21 +44,7 @@ typedef struct {
 */
 NFMSG_PointHandle NFMSG_CreatePoint(NFMSG_MsgHandlerFunc pfnMsgHandler)
 {
-    PointDef *p = NF_MALLOC_VAR(PointDef);    /* 申请内存 */
-    if(p == NULL)
-        return NULL;
-    
-    p->Handler = pfnMsgHandler;
-    
-    return (NFMSG_PointHandle)p;
-}
 
-bool NFMSG_AddHandler(NFMSG_PointHandle PointHandle)
-{
-    PointDef *p = (PointDef*)PointHandle;
-    while ( (p->Handler ) != NULL)
-        p->Handler =  NF_MALLOC_VAR(MsgHandlerDef);    /* 申请内存 */
-    
 }
 
 /**
@@ -68,7 +55,7 @@ bool NFMSG_AddHandler(NFMSG_PointHandle PointHandle)
 */
 bool NFMSG_DisposePoint(NFMSG_PointHandle Point)
 {
-    
+
 }
 
 /**
@@ -83,7 +70,7 @@ NFMSG_MsgID NFMSG_SendMsg(  NFMSG_PointHandle       Target,
                             NFMSG_CallbackFunc     *pfnCallback,
                             NFMSG_Priority_Enum     Priority    )
 {
-    
+
 }
 
 
