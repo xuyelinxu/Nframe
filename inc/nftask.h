@@ -15,7 +15,7 @@
 #define _NFTASK_H_
 
 /** Includes -----------------------------------------------------------------*/
-#include "stm32f10x.h"
+#include "nframe.h"
 
 /** Exported types -----------------------------------------------------------*/
 
@@ -27,8 +27,8 @@ typedef struct{
 }NFTASK_SetupTypeDef;
 
 typedef enum {
-    NFTASK_DISABLE    = 0,                /**< \brief 禁止任务 */
-    NFTASK_ENABLE     = !NFTASK_DISABLE     /**< \brief 开始任务 */
+    NFTASK_DISABLE    = 0,                    /**< \brief 禁止任务 */
+    NFTASK_ENABLE                             /**< \brief 开始任务 */
 } NFTASK_SetupTypeDef_Enable;
 
 typedef enum {

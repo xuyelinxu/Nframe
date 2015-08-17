@@ -10,7 +10,8 @@
 */
 
 /** Includes -----------------------------------------------------------------*/
-#include "nframe._config.h"
+#include "nframe.h"
+#include "nframe_config.h"
 
 #include "stm32f10x.h"
 
@@ -21,13 +22,13 @@
 * \brief 使用NFTASK模块，需要根据硬件环境编写该部分程序
 */
 
-#ifdef NFCONFIG_NFTASK
+#ifdef NFTASK_ENABLE
 
 /**
 * \brief    NFTASK模块需要使用一个定时器资源,用于定时执行的任务
 *
 */
-void NFCONFIG_NFTASK_TimerInit (void)
+void NFTASK_TimerInit (void)
 {
     /**
     * 本程序以stm32f10x硬件为例,应用官方库函数,配置硬件资源TIMER2
@@ -47,7 +48,7 @@ void NFCONFIG_NFTASK_TimerInit (void)
     TimeBaseStructure.TIM_CounterMode = TIM_CounterMode_Up;
 
     /* 自动重装载寄存器 (NFCONFIG_NFTASK_TIMESLICE)us */
-    TimeBaseStructure.TIM_Period = NFCONFIG_NFTASK_TIMESLICE;
+    TimeBaseStructure.TIM_Period = NFTASK_TIMESLICE;
 
     /* 时钟分频因子 外部来的时钟进行分频 */
     TimeBaseStructure.TIM_ClockDivision = 0x0;

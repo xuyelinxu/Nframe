@@ -38,10 +38,10 @@ static Items itemsEndless = NULL;       /* 无限循环执行列表 */
 static Items itemsTiming = NULL;        /* 定时执行列表 */
 static Items itemsTimingInt = NULL;     /* 定时中断执行列表 */
 
-static bool timeUp;      /* TIMER溢出时标记 供NFTASK_Run()使用 */
+static BOOLEAN timeUp;      /* TIMER溢出时标记 供NFTASK_Run()使用 */
 
 /** Private functions -------------------------------------------------------**/
-
+void excuteFunctions (Items items, BOOLEAN direct);
 
 /**
 * \brief 每隔(NFCONFIG_NFTASK_TIMESLICE)us中断,执行一次的中断服务程序
@@ -65,10 +65,10 @@ void NFTASK_Isr(void)
 * \retval false     失败
 * \retval ture      成功
 */
-bool item_add (Items *items, NFTASK_SetupTypeDef *setupStruct)
+BOOLEAN item_add (Items *items, NFTASK_SetupTypeDef *setupStruct)
 {
     Item *ptr;
-    TASK_SetupTypeDef task;
+    //TASK_SetupTypeDef task;
 
     /* 第一次使用 */
     if(*items == NULL){
@@ -76,10 +76,10 @@ bool item_add (Items *items, NFTASK_SetupTypeDef *setupStruct)
         /* 列表中第一个项目为空项目 */
         *items = (Item*) malloc(sizeof(Item));
         if (*items == NULL)
-            return false;
+            return FALSE;
 
         /* 启动定时器 */
-        NFCONFIG_NFTASK_TimerInit();
+        NFTASK_TimerInit();
 
     }
 
@@ -92,7 +92,7 @@ bool item_add (Items *items, NFTASK_SetupTypeDef *setupStruct)
             /* 找到，直接处理 */
             ptr->Setup = *setupStruct;
             ptr->TimeLable = 0;
-            return ture;
+            return TRUE;
         }
 
     }
@@ -101,14 +101,14 @@ bool item_add (Items *items, NFTASK_SetupTypeDef *setupStruct)
     ptr->NextItem = (Item*) malloc( sizeof(Item) );
     ptr = ptr->NextItem;
     if (ptr == NULL)
-        return false;
+        return FALSE;
 
     /* 填充新项目 */
     ptr->Setup = *setupStruct;
     ptr->TimeLable = 0;
     ptr->NextItem = NULL;
 
-    return ture;
+    return TRUE;
 }
 
 /**
@@ -121,13 +121,13 @@ bool item_add (Items *items, NFTASK_SetupTypeDef *setupStruct)
 * \retval ture      成功
 */
 //todo: 发现了bug 会卡在while(ptr->NextItem != NULL);中!!!!!
-bool item_del (Items items, NFTASK_Function pfunc)
+BOOLEAN item_del (Items items, NFTASK_Function pfunc)
 {
     Item *ptr = items;
     Item *tmpPtr;
 
     if(pfunc == NULL)
-        return fasle;
+        return FALSE;
 
     do{
         if(ptr->NextItem->Setup.Function == pfunc){
@@ -136,11 +136,11 @@ bool item_del (Items items, NFTASK_Function pfunc)
             free(ptr->NextItem);
             ptr->NextItem = tmpPtr;
 
-            return ture;
+            return TRUE;
         }
     } while(ptr->NextItem != NULL);
 
-    return false;
+    return FALSE;
 }
 
 /**
@@ -149,7 +149,7 @@ bool item_del (Items items, NFTASK_Function pfunc)
 * \param[in]        items
 * \param[in]        direct    是否无视时标,直接执行
 */
-void excuteFunctions (Items items, bool direct)
+void excuteFunctions (Items items, BOOLEAN direct)
 {
     static Item *ptr;
 
@@ -189,7 +189,7 @@ void excuteFunctions (Items items, bool direct)
 * \retval false     失败
 * \retval ture      成功
 */
-bool NFTASK_Setup (NFTASK_SetupTypeDef  *NFTASK_SetupStruct,
+BOOLEAN NFTASK_Setup (NFTASK_SetupTypeDef  *NFTASK_SetupStruct,
                     NFTASK_Type_Enum      NFTASK_TYPE   )
 {
     if( NFTASK_SetupStruct                == NULL ||
@@ -209,7 +209,7 @@ bool NFTASK_Setup (NFTASK_SetupTypeDef  *NFTASK_SetupStruct,
             break;
     }
 
-    return ture;
+    return TRUE;
 }
 
 
@@ -223,9 +223,9 @@ bool NFTASK_Setup (NFTASK_SetupTypeDef  *NFTASK_SetupStruct,
 * \retval false     失败
 * \retval ture      成功
 */
-bool NFTASK_SetupDelete (NFTASK_Function pfunc, NFTASK_Type_Enum NFTASK_TYPE)
+BOOLEAN NFTASK_SetupDelete (NFTASK_Function pfunc, NFTASK_Type_Enum NFTASK_TYPE)
 {
-    bool retval;  /* 返回值 */
+    BOOLEAN retval;  /* 返回值 */
 
     switch(NFTASK_TYPE){
         case NFTASK_TYPE_ENDLESS:

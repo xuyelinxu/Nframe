@@ -9,8 +9,8 @@
 */
 
 /* Define to prevent recursive inclusion -------------------------------------*/
-#ifndef _NFDEBUG_H
-#define _NFDEBUG_H
+#ifndef _NFDEBUG_H_
+#define _NFDEBUG_H_
 
 /* Includes ------------------------------------------------------------------*/
 #include <stdio.h>

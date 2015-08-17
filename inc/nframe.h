@@ -18,22 +18,20 @@
 */
 
 /** Define to prevent recursive inclusion ------------------------------------*/
-#ifndef _NFRAME_H
-#define _NFRAME_H
+#ifndef _NFRAME_H_
+#define _NFRAME_H_
 
 #ifdef __cplusplus
-extern “C” {
+extern "C" {
 #endif
 
 /** Includes -----------------------------------------------------------------*/
-#include "stdlib.h"
+#include <stdlib.h>
+#include <stdint.h>
+
 
 #include "nframe_config.h"
 
-#include "nfdebug.h'
-#include "nftask.h'
-#include "nfmsg.h'
-#include "nffsm.h'
 
 /** Exported MACRO -----------------------------------------------------------*/
 
@@ -42,12 +40,17 @@ extern “C” {
  * @{
  */
 
+
+
+typedef unsigned char BOOLEAN;              /**< \brief BOOLEAN */
+
+
 #ifndef FALSE
 #define FALSE            0              /**< \brief false */
 #endif
 
-#ifndef TURE
-#define TURE             (!FALSE)       /**< \brief ture */
+#ifndef TRUE
+#define TRUE             (!FALSE)       /**< \brief ture */
 #endif
 
 #ifndef NULL
@@ -77,8 +80,35 @@ extern “C” {
 /** \brief 把宏展开后的结果转换为字符串 */
 #define NF_XSTR(s)              AM_STR(s)
 
-#define NF_MALLOC_VAR(vartype)  ( ( (vartype)* )( sizeof(vartype) ) )
+#ifdef NFCONFIG_NFMEM   /* 使用内存管理模块 */
 
+    /** \brief 申请内存 */
+    #define NF_MALLOC(size)  ( NFMEM_Malloc(size) )
+
+    /** \brief 为一个vartype类型的变量申请内存 */
+    #define NF_MALLOC_VAR(vartype)  ( ((vartype)*)(NFMEM_Malloc(sizeof(vartype))) )
+
+    /** \brief 释放内存 */
+    #define NF_FREE(ptr)            ( NFMEM_Free(ptr) )
+
+    /** \brief 内存拷贝 */
+    #define NF_MEMCPY(dest,src,size)  ( NFMEM_Memcpy(dest,src,size) )
+
+#else                   /* 使用c标准库自带的malloc函数 */
+
+    /** \brief 申请内存 */
+    #define NF_MALLOC(size)  ( malloc(size) )
+
+    /** \brief 为一个vartype类型的变量申请内存 */
+    #define NF_MALLOC_VAR(vartype)  ( ((vartype)*)(malloc(sizeof(vartype))) )
+
+    /** \brief 释放内存 */
+    #define NF_FREE(ptr)            ( free(ptr) )
+
+    /** \brief 内存拷贝 */
+    #define NF_MEMCPY(dest,src,size)  ( memcpy(dest,src,size) )
+
+#endif
 /** @} */
 
 /*******************************************************************************
@@ -87,21 +117,25 @@ extern “C” {
  */
 
 #if defined ( __CC_ARM   )
+
     #ifndef __INLINE
     #define __INLINE    __inline /*!< ARM Compiler     */
-    #enfif
+    #endif
 
 #elif defined ( __ICCARM__ )
+
     #ifndef __INLINE
     #define __INLINE    inline    /*!< IAR Compiler. High optimization mode! */
     #endif
 
 #elif defined   (  __GNUC__  )
+
     #ifndef __INLINE
     #define __INLINE    inline   /*!< GNU Compiler    */
     #endif
 
 #elif defined   (  __TASKING__  )
+
     #ifndef __INLINE
     #define __INLINE    inline   /*!< TASKING Compiler */
     #endif
@@ -113,13 +147,29 @@ extern “C” {
 
 /** Exported Functions -------------------------------------------------------*/
 
-static __INLINE
-void NFRAME_Init(void)
-{
+//static __INLINE
+//void NFRAME_Init(void)
+//{
+//
+//}
+//
+//static __INLINE
+//void NFRAME_DeInit(void)
+//{
+//
+//}
+//
+//static __INLINE
+//void NFRAME_Run(void)
+//{
+//
+//}
 
-}
-void NFRAME_DeInit(void);
 
+//#include "nfdebug.h"
+#include "nftask.h"
+#include "nfmsg.h"
+//#include "nffsm.h"
 /*******************************************************************************
  * extern “C”
  */

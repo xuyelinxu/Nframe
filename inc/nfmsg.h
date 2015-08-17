@@ -13,7 +13,7 @@
 #define _NFMSG_H_
 
 #ifdef __cplusplus
-extern “C” {
+extern "C" {
 #endif
 
 /** Includes -----------------------------------------------------------------*/
@@ -21,37 +21,48 @@ extern “C” {
 
 /** Exported typedef --------------------------------------------------------**/
 
-typedef NFMSG_PointHandle   intptr_t;       /**< \brief 监听者句柄 */
-typedef NFMSG_MsgID         intptr_t;       /**< \brief 消息ID */
-
-/** \brief  */
-typedef void (*NFMSG_MsgHandlerFunc)(NFMSG_PointHandle *Sender,
-                                     NFMSG_MsgID        MsgID,
-                                     void              *Msg));
+typedef    intptr_t NFMSG_PointHandle;       /**< \brief 监听者句柄 */
+typedef    intptr_t NFMSG_CallbackMsg;
 
 /** \brief 发送消息回调函数 */
-typedef void (*NFMSG_CallbackFunc)(NFMSG_MsgID);
+typedef void (*NFMSG_CallbackFunc)(NFMSG_CallbackMsg CallbackMsg);
 
-typedef enum {
-    NFMSG_Priority_1,
-    NFMSG_Priority_2,
-    NFMSG_Priority_3,
-    NFMSG_Priority_4,
-} NFMSG_Priority_Enum;
+typedef struct{
+    NFMSG_PointHandle       Sender;         /**< \brief 发送方 消息点句柄 */
+    NFMSG_PointHandle       Target;         /**< \brief 接收方 消息点句柄 */
+
+    NFMSG_Type_Enum         MsgType;        /**< \brief 消息类型 */
+    intptr_t                MsgSize;        /**< \brief 消息大小 */
+    void                   *pMsg;           /**< \brief 消息 */
+
+    NFMSG_CallbackFunc     *pfnCallback;    /**< \brief 回调函数 */
+
+} NFMSG_MsgPackDef;     /**< \brief 消息包 结构体定义 */
+
+
+/** \brief  */
+typedef NFMSG_CallbackMsg (*NFMSG_MsgHandlerFunc)(NFMSG_MsgPackDef  *pMsgPack);
 
 /** Exported Functions -------------------------------------------------------*/
 
+
+#define NFMSG_MakeMsgPack(MsgPack, Sender, Target, MsgType, Msg, pfnCallback) \
+        {                                                                  \
+            MsgPack.Sender  = Sender;                                      \
+            MsgPack.Target  = Target;                                      \
+            MsgPack.MsgType = MsgType;                                     \
+            MsgPack.MsgSize = sizeof(Msg);                                 \
+            MsgPack.pMsg    = &Msg;                                        \
+        }
+
+
 NFMSG_PointHandle NFMSG_CreatePoint(NFMSG_MsgHandlerFunc pfnMsgHandler);
 
-bool NFMSG_DisposePoint(NFMSG_PointHandle Point);
+BOOLEAN NFMSG_DisposePoint(NFMSG_PointHandle Point);
 
-NFMSG_MsgID NFMSG_SendMsg(  NFMSG_PointHandle       Target,
-                            NFMSG_PointHandle       Sender,
-                            void                   *pMsg,
-                            uint32_t                MsgSize,
-                            NFMSG_CallbackFunc     *pfnCallback,
-                            NFMSG_Priority_Enum     Priority    );
+BOOLEAN NFMSG_SendMsg(NFMSG_MsgPackDef *MsgPack, BOOLEAN DoItNow);
 
+void NFMSG_Run(void);
 /**
  * extern “C”
  */
