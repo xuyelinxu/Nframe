@@ -22,8 +22,9 @@
 /** Private typedef ---------------------------------------------------------**/
 
 typedef struct Item{
-     NFTASK_SetupTypeDef    Setup;              /**< \brief 设置 */
-     uint16_t               TimeLable;          /**< \brief 时标 */
+     NFTASK_Function        Function;           /**< \brief 关联的函数 */
+     uint32_t               TimeLable;          /**< \brief 时标 */
+     uint32_t               TimeLableMax;       /**< \brief 时标最大值 */
      struct Item           *NextItem;           /**< \brief 单链表指针 */
 }Item;
 
@@ -65,10 +66,17 @@ void NFTASK_Isr(void)
 * \retval false     失败
 * \retval ture      成功
 */
+static
 BOOLEAN item_add (Items *items, NFTASK_SetupTypeDef *setupStruct)
 {
     Item *ptr;
-    //TASK_SetupTypeDef task;
+    uint32_t timeLableMax;
+
+    /* 计算timeLabeMax */
+    if(setupStruct->NFTASK_Time_Unit = NFTASK_Time_Unit_us)
+        timeLableMax = setupStruct->Time / NFTASK_TIMESLICE;
+    else if(setupStruct->NFTASK_Time_Unit = NFTASK_Time_Unit_ms)
+        timeLableMax = setupStruct->Time * 1000 / NFTASK_TIMESLICE;
 
     /* 第一次使用 */
     if(*items == NULL){
@@ -80,7 +88,6 @@ BOOLEAN item_add (Items *items, NFTASK_SetupTypeDef *setupStruct)
 
         /* 启动定时器 */
         NFTASK_TimerInit();
-
     }
 
     /* 查重 */
@@ -189,27 +196,31 @@ void excuteFunctions (Items items, BOOLEAN direct)
 * \retval false     失败
 * \retval ture      成功
 */
-BOOLEAN NFTASK_Setup (NFTASK_SetupTypeDef  *NFTASK_SetupStruct,
-                    NFTASK_Type_Enum      NFTASK_TYPE   )
+BOOLEAN NFTASK_Setup (  NFTASK_SetupTypeDef  *NFTASK_SetupStruct,
+                        NFTASK_Type_Enum      NFTASK_TYPE   )
 {
-    if( NFTASK_SetupStruct                == NULL ||
-        NFTASK_SetupStruct->Function  == NULL ){
+    BOOLEAN retval;
+
+    if( NFTASK_SetupStruct              == NULL ||
+        NFTASK_SetupStruct->Function    == NULL ){
        return 0;
     }
 
     switch(NFTASK_TYPE){
         case NFTASK_TYPE_ENDLESS:
-            item_add(&itemsEndless,NFTASK_SetupStruct);
+            retval = item_add(&itemsEndless,NFTASK_SetupStruct);
             break;
         case NFTASK_TYPE_TIMING:
-            item_add(&itemsTiming,NFTASK_SetupStruct);
+            retval = item_add(&itemsTiming,NFTASK_SetupStruct);
             break;
         case NFTASK_TYPE_TIMINGINT:
-            item_add(&itemsTimingInt,NFTASK_SetupStruct);
+            retval = item_add(&itemsTimingInt,NFTASK_SetupStruct);
             break;
+        default:
+            retval = FALSE;
     }
 
-    return TRUE;
+    return retval;
 }
 
 

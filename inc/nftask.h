@@ -21,9 +21,16 @@
 
 typedef void (*NFTASK_Function)(void);
 
+
+typedef enum {
+    NFTASK_Time_Unit_us    = 0,     /**< \brief us微秒 */
+    NFTASK_Time_Unit_ms,            /**< \brief ms毫秒 */
+} NFTASK_Time_Unit_Enum;
+
 typedef struct{
-    NFTASK_Function     Function;       /**< \brief 关联的函数 */
-    uint16_t            Prescaler;      /**< \brief 分频系数 */
+    NFTASK_Function         Function;           /**< \brief 关联的函数 */
+    uint32_t                Time;               /**< \brief 重复间隔 */
+    NFTASK_Time_Unit_Enum   NFTASK_Time_Unit;   /**< \brief 重复间隔的单位 */
 }NFTASK_SetupTypeDef;
 
 typedef enum {
