@@ -26,7 +26,7 @@
 
 
 
-static __INLINE
+static NF_INLINE
 void DEBUG_Write(const char *str)
 {
 

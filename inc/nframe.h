@@ -118,27 +118,19 @@ typedef unsigned char BOOLEAN;              /**< \brief BOOLEAN */
 
 #if defined ( __CC_ARM   )
 
-    #ifndef __INLINE
-    #define __INLINE    __inline /*!< ARM Compiler     */
-    #endif
+    #define NF_INLINE    __inline /*!< ARM Compiler     */
 
 #elif defined ( __ICCARM__ )
 
-    #ifndef __INLINE
-    #define __INLINE    inline    /*!< IAR Compiler. High optimization mode! */
-    #endif
+    #define NF_INLINE    inline    /*!< IAR Compiler. High optimization mode! */
 
 #elif defined   (  __GNUC__  )
 
-    #ifndef __INLINE
-    #define __INLINE    inline   /*!< GNU Compiler    */
-    #endif
+    #define NF_INLINE    inline   /*!< GNU Compiler    */
 
 #elif defined   (  __TASKING__  )
 
-    #ifndef __INLINE
-    #define __INLINE    inline   /*!< TASKING Compiler */
-    #endif
+    #define NF_INLINE    inline   /*!< TASKING Compiler */
 
 #endif
 
@@ -147,23 +139,23 @@ typedef unsigned char BOOLEAN;              /**< \brief BOOLEAN */
 
 /** Exported Functions -------------------------------------------------------*/
 
-//static __INLINE
-//void NFRAME_Init(void)
-//{
-//
-//}
-//
-//static __INLINE
+static NF_INLINE
+void NFRAME_Init(void)
+{
+
+}
+
+//static NF_INLINE
 //void NFRAME_DeInit(void)
 //{
 //
 //}
 //
-//static __INLINE
-//void NFRAME_Run(void)
-//{
-//
-//}
+static NF_INLINE
+void NFRAME_Run(void)
+{
+
+}
 
 
 //#include "nfdebug.h"

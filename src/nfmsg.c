@@ -189,13 +189,13 @@ BOOLEAN NFMSG_DisposePoint(NFMSG_PointHandle PointHandle)
 }
 
 
-static __INLINE
+static NF_INLINE
 BOOLEAN msgQueueIsEmpty()
 {
     return (msgQueueStartIndex == msgQueueEndIndex);
 }
 
-static __INLINE
+static NF_INLINE
 void msgClearQueue()
 {
     msgQueueStartIndex = msgQueueEndIndex = 0;
