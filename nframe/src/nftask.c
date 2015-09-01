@@ -80,7 +80,7 @@ BOOLEAN item_add (Items *items, NFTASK_SetupTypeDef *setupStruct)
     if(*items == NULL){
 
         /* 列表中第一个项目为空项目 */
-        *items = (Item*) malloc(sizeof(Item));
+        *items = (Item*)NF_MALLOC(sizeof(Item));	// (Item*) malloc(sizeof(Item));           
         if (*items == NULL)
             return FALSE;
 
@@ -103,7 +103,7 @@ BOOLEAN item_add (Items *items, NFTASK_SetupTypeDef *setupStruct)
     }
 
     /* 未找到,添加新项目 */
-    ptr->NextItem = (Item*) malloc( sizeof(Item) );
+    ptr->NextItem = (Item*)NF_MALLOC(sizeof(Item));    // (Item*) malloc( sizeof(Item) );
     ptr = ptr->NextItem;
     if (ptr == NULL)
         return FALSE;
@@ -138,7 +138,7 @@ BOOLEAN item_del (Items items, NFTASK_Function pfunc)
         if(ptr->NextItem->Function == pfunc){
             /* 删除链表中该项 */
             tmpPtr = ptr->NextItem->NextItem;
-            free(ptr->NextItem);
+            NF_FREE(ptr->NextItem); //free(ptr->NextItem);
             ptr->NextItem = tmpPtr;
 
             return TRUE;
