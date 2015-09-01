@@ -1,0 +1,273 @@
+# depslib dependency file v1.0
+1440952115 source:e:\noodlefighter临时\nframe\examples\stm32f10x\library\cmsis\core_cm3.c
+	<stdint.h>
+
+1440952115 source:e:\noodlefighter临时\nframe\examples\stm32f10x\library\stm32f10x_stdperiph_driver\src\misc.c
+	"misc.h"
+
+1440952115 e:\noodlefighter临时\nframe\examples\stm32f10x\library\stm32f10x_stdperiph_driver\inc\misc.h
+	"stm32f10x.h"
+
+1440952115 e:\noodlefighter临时\nframe\examples\stm32f10x\library\stm32f10x\stm32f10x.h
+	"core_cm3.h"
+	"system_stm32f10x.h"
+	<stdint.h>
+	"stm32f10x_conf.h"
+
+1440952115 e:\noodlefighter临时\nframe\examples\stm32f10x\library\cmsis\core_cm3.h
+	<stdint.h>
+	<intrinsics.h>
+
+1358771272 e:\noodlefighter临时\nframe\examples\stm32f10x\library\stm32f10x\system_stm32f10x.h
+
+1441033293 e:\noodlefighter临时\nframe\examples\stm32f10x\user\stm32f10x_conf.h
+	"stm32f10x_adc.h"
+	"stm32f10x_bkp.h"
+	"stm32f10x_can.h"
+	"stm32f10x_crc.h"
+	"stm32f10x_dac.h"
+	"stm32f10x_dbgmcu.h"
+	"stm32f10x_dma.h"
+	"stm32f10x_exti.h"
+	"stm32f10x_flash.h"
+	"stm32f10x_fsmc.h"
+	"stm32f10x_gpio.h"
+	"stm32f10x_i2c.h"
+	"stm32f10x_iwdg.h"
+	"stm32f10x_pwr.h"
+	"stm32f10x_rcc.h"
+	"stm32f10x_rtc.h"
+	"stm32f10x_sdio.h"
+	"stm32f10x_spi.h"
+	"stm32f10x_tim.h"
+	"stm32f10x_usart.h"
+	"stm32f10x_wwdg.h"
+	"misc.h"
+
+1440952115 e:\noodlefighter临时\nframe\examples\stm32f10x\library\stm32f10x_stdperiph_driver\inc\stm32f10x_adc.h
+	"stm32f10x.h"
+
+1440952115 e:\noodlefighter临时\nframe\examples\stm32f10x\library\stm32f10x_stdperiph_driver\inc\stm32f10x_bkp.h
+	"stm32f10x.h"
+
+1440952115 e:\noodlefighter临时\nframe\examples\stm32f10x\library\stm32f10x_stdperiph_driver\inc\stm32f10x_can.h
+	"stm32f10x.h"
+
+1440952115 e:\noodlefighter临时\nframe\examples\stm32f10x\library\stm32f10x_stdperiph_driver\inc\stm32f10x_crc.h
+	"stm32f10x.h"
+
+1440952115 e:\noodlefighter临时\nframe\examples\stm32f10x\library\stm32f10x_stdperiph_driver\inc\stm32f10x_dac.h
+	"stm32f10x.h"
+
+1440952115 e:\noodlefighter临时\nframe\examples\stm32f10x\library\stm32f10x_stdperiph_driver\inc\stm32f10x_dbgmcu.h
+	"stm32f10x.h"
+
+1440952115 e:\noodlefighter临时\nframe\examples\stm32f10x\library\stm32f10x_stdperiph_driver\inc\stm32f10x_dma.h
+	"stm32f10x.h"
+
+1440952115 e:\noodlefighter临时\nframe\examples\stm32f10x\library\stm32f10x_stdperiph_driver\inc\stm32f10x_exti.h
+	"stm32f10x.h"
+
+1440952115 e:\noodlefighter临时\nframe\examples\stm32f10x\library\stm32f10x_stdperiph_driver\inc\stm32f10x_flash.h
+	"stm32f10x.h"
+
+1440952115 e:\noodlefighter临时\nframe\examples\stm32f10x\library\stm32f10x_stdperiph_driver\inc\stm32f10x_fsmc.h
+	"stm32f10x.h"
+
+1440952115 e:\noodlefighter临时\nframe\examples\stm32f10x\library\stm32f10x_stdperiph_driver\inc\stm32f10x_gpio.h
+	"stm32f10x.h"
+
+1440952115 e:\noodlefighter临时\nframe\examples\stm32f10x\library\stm32f10x_stdperiph_driver\inc\stm32f10x_i2c.h
+	"stm32f10x.h"
+
+1440952115 e:\noodlefighter临时\nframe\examples\stm32f10x\library\stm32f10x_stdperiph_driver\inc\stm32f10x_iwdg.h
+	"stm32f10x.h"
+
+1440952115 e:\noodlefighter临时\nframe\examples\stm32f10x\library\stm32f10x_stdperiph_driver\inc\stm32f10x_pwr.h
+	"stm32f10x.h"
+
+1440952115 e:\noodlefighter临时\nframe\examples\stm32f10x\library\stm32f10x_stdperiph_driver\inc\stm32f10x_rcc.h
+	"stm32f10x.h"
+
+1440952115 e:\noodlefighter临时\nframe\examples\stm32f10x\library\stm32f10x_stdperiph_driver\inc\stm32f10x_rtc.h
+	"stm32f10x.h"
+
+1440952115 e:\noodlefighter临时\nframe\examples\stm32f10x\library\stm32f10x_stdperiph_driver\inc\stm32f10x_sdio.h
+	"stm32f10x.h"
+
+1440952115 e:\noodlefighter临时\nframe\examples\stm32f10x\library\stm32f10x_stdperiph_driver\inc\stm32f10x_spi.h
+	"stm32f10x.h"
+
+1440952115 e:\noodlefighter临时\nframe\examples\stm32f10x\library\stm32f10x_stdperiph_driver\inc\stm32f10x_tim.h
+	"stm32f10x.h"
+
+1440952115 e:\noodlefighter临时\nframe\examples\stm32f10x\library\stm32f10x_stdperiph_driver\inc\stm32f10x_usart.h
+	"stm32f10x.h"
+
+1440952115 e:\noodlefighter临时\nframe\examples\stm32f10x\library\stm32f10x_stdperiph_driver\inc\stm32f10x_wwdg.h
+	"stm32f10x.h"
+
+1440952115 source:e:\noodlefighter临时\nframe\examples\stm32f10x\library\stm32f10x_stdperiph_driver\src\stm32f10x_adc.c
+	"stm32f10x_adc.h"
+	"stm32f10x_rcc.h"
+
+1440952115 source:e:\noodlefighter临时\nframe\examples\stm32f10x\library\stm32f10x_stdperiph_driver\src\stm32f10x_bkp.c
+	"stm32f10x_bkp.h"
+	"stm32f10x_rcc.h"
+
+1440952115 source:e:\noodlefighter临时\nframe\examples\stm32f10x\library\stm32f10x_stdperiph_driver\src\stm32f10x_can.c
+	"stm32f10x_can.h"
+	"stm32f10x_rcc.h"
+
+1440952115 source:e:\noodlefighter临时\nframe\examples\stm32f10x\library\stm32f10x_stdperiph_driver\src\stm32f10x_cec.c
+	"stm32f10x_cec.h"
+	"stm32f10x_rcc.h"
+
+1440952115 e:\noodlefighter临时\nframe\examples\stm32f10x\library\stm32f10x_stdperiph_driver\inc\stm32f10x_cec.h
+	"stm32f10x.h"
+
+1440952115 source:e:\noodlefighter临时\nframe\examples\stm32f10x\library\stm32f10x_stdperiph_driver\src\stm32f10x_crc.c
+	"stm32f10x_crc.h"
+
+1440952115 source:e:\noodlefighter临时\nframe\examples\stm32f10x\library\stm32f10x_stdperiph_driver\src\stm32f10x_dac.c
+	"stm32f10x_dac.h"
+	"stm32f10x_rcc.h"
+
+1440952115 source:e:\noodlefighter临时\nframe\examples\stm32f10x\library\stm32f10x_stdperiph_driver\src\stm32f10x_dbgmcu.c
+	"stm32f10x_dbgmcu.h"
+
+1440952115 source:e:\noodlefighter临时\nframe\examples\stm32f10x\library\stm32f10x_stdperiph_driver\src\stm32f10x_dma.c
+	"stm32f10x_dma.h"
+	"stm32f10x_rcc.h"
+
+1440952115 source:e:\noodlefighter临时\nframe\examples\stm32f10x\library\stm32f10x_stdperiph_driver\src\stm32f10x_exti.c
+	"stm32f10x_exti.h"
+
+1440952115 source:e:\noodlefighter临时\nframe\examples\stm32f10x\library\stm32f10x_stdperiph_driver\src\stm32f10x_flash.c
+	"stm32f10x_flash.h"
+
+1440952115 source:e:\noodlefighter临时\nframe\examples\stm32f10x\library\stm32f10x_stdperiph_driver\src\stm32f10x_fsmc.c
+	"stm32f10x_fsmc.h"
+	"stm32f10x_rcc.h"
+
+1440952115 source:e:\noodlefighter临时\nframe\examples\stm32f10x\library\stm32f10x_stdperiph_driver\src\stm32f10x_gpio.c
+	"stm32f10x_gpio.h"
+	"stm32f10x_rcc.h"
+
+1440952115 source:e:\noodlefighter临时\nframe\examples\stm32f10x\library\stm32f10x_stdperiph_driver\src\stm32f10x_i2c.c
+	"stm32f10x_i2c.h"
+	"stm32f10x_rcc.h"
+
+1440952115 source:e:\noodlefighter临时\nframe\examples\stm32f10x\library\stm32f10x_stdperiph_driver\src\stm32f10x_iwdg.c
+	"stm32f10x_iwdg.h"
+
+1440952115 source:e:\noodlefighter临时\nframe\examples\stm32f10x\library\stm32f10x_stdperiph_driver\src\stm32f10x_pwr.c
+	"stm32f10x_pwr.h"
+	"stm32f10x_rcc.h"
+
+1440952115 source:e:\noodlefighter临时\nframe\examples\stm32f10x\library\stm32f10x_stdperiph_driver\src\stm32f10x_rcc.c
+	"stm32f10x_rcc.h"
+
+1440952115 source:e:\noodlefighter临时\nframe\examples\stm32f10x\library\stm32f10x_stdperiph_driver\src\stm32f10x_rtc.c
+	"stm32f10x_rtc.h"
+
+1440952115 source:e:\noodlefighter临时\nframe\examples\stm32f10x\library\stm32f10x_stdperiph_driver\src\stm32f10x_sdio.c
+	"stm32f10x_sdio.h"
+	"stm32f10x_rcc.h"
+
+1440952115 source:e:\noodlefighter临时\nframe\examples\stm32f10x\library\stm32f10x_stdperiph_driver\src\stm32f10x_spi.c
+	"stm32f10x_spi.h"
+	"stm32f10x_rcc.h"
+
+1440952115 source:e:\noodlefighter临时\nframe\examples\stm32f10x\library\stm32f10x_stdperiph_driver\src\stm32f10x_tim.c
+	"stm32f10x_tim.h"
+	"stm32f10x_rcc.h"
+
+1440952115 source:e:\noodlefighter临时\nframe\examples\stm32f10x\library\stm32f10x_stdperiph_driver\src\stm32f10x_usart.c
+	"stm32f10x_usart.h"
+	"stm32f10x_rcc.h"
+
+1440952115 source:e:\noodlefighter临时\nframe\examples\stm32f10x\library\stm32f10x_stdperiph_driver\src\stm32f10x_wwdg.c
+	"stm32f10x_wwdg.h"
+	"stm32f10x_rcc.h"
+
+1440952125 source:e:\noodlefighter临时\nframe\examples\stm32f10x\library\stm32f10x\system_stm32f10x.c
+	"stm32f10x.h"
+
+1441035367 source:e:\noodlefighter临时\nframe\examples\stm32f10x\user\nftask_example.c
+	"stm32f10x.h"
+	"nframe.h"
+
+1440868855 e:\noodlefighter临时\nframe\nframe\inc\nframe.h
+	<stdlib.h>
+	<stdint.h>
+	"nframe_config.h"
+	"nftask.h"
+	"nfmsg.h"
+
+1440868855 e:\noodlefighter临时\nframe\nframe\inc\nframe_config.h
+
+1441033698 e:\noodlefighter临时\nframe\nframe\inc\nftask.h
+	"nframe.h"
+
+1440868855 e:\noodlefighter临时\nframe\nframe\inc\nfmsg.h
+	"nframe.h"
+
+1441019005 source:e:\noodlefighter临时\nframe\nframe\src\nfdebug.c
+	"nframe.h"
+	"string.h"
+	<stdio.h>
+	<stdlib.h>
+	"ctrl_system.h"
+
+1440868855 e:\noodlefighter临时\nframe\nframe\inc\ctrl_system.h
+	"stm32f10x.h"
+
+1440868856 source:e:\noodlefighter临时\nframe\nframe\src\nffsm.c
+	"nframe.h"
+
+1440868856 source:e:\noodlefighter临时\nframe\nframe\src\nfmem.c
+	"nframe.h"
+
+1440868856 source:e:\noodlefighter临时\nframe\nframe\src\nfmsg.c
+	"nframe.h"
+
+1440868856 source:e:\noodlefighter临时\nframe\nframe\src\nframe_config.c
+	"nframe.h"
+	"nframe_config.h"
+	"stm32f10x.h"
+
+1441020297 source:e:\noodlefighter临时\nframe\nframe\src\nftask.c
+	"nftask.h"
+
+1441020595 source:e:\noodlefighter临时\nframe\examples\stm32f10x\startup_armgcc\startup_stm32f10x_hd.s
+
+1440868856 source:e:\noodlefighter临时\nframe\examples\stm32f10x\user\nframe_config.c
+	"nframe.h"
+	"nframe_config.h"
+	"stm32f10x.h"
+
+1441033293 e:\noodlefighter临时\nframe\examples\stm32f10x\library\stm32f10x\stm32f10x_conf.h
+	"stm32f10x_adc.h"
+	"stm32f10x_bkp.h"
+	"stm32f10x_can.h"
+	"stm32f10x_crc.h"
+	"stm32f10x_dac.h"
+	"stm32f10x_dbgmcu.h"
+	"stm32f10x_dma.h"
+	"stm32f10x_exti.h"
+	"stm32f10x_flash.h"
+	"stm32f10x_fsmc.h"
+	"stm32f10x_gpio.h"
+	"stm32f10x_i2c.h"
+	"stm32f10x_iwdg.h"
+	"stm32f10x_pwr.h"
+	"stm32f10x_rcc.h"
+	"stm32f10x_rtc.h"
+	"stm32f10x_sdio.h"
+	"stm32f10x_spi.h"
+	"stm32f10x_tim.h"
+	"stm32f10x_usart.h"
+	"stm32f10x_wwdg.h"
+	"misc.h"
+

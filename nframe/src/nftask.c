@@ -70,13 +70,11 @@ static
 BOOLEAN item_add (Items *items, NFTASK_SetupTypeDef *setupStruct)
 {
     Item *ptr;
-    uint32_t timeLableMax;
 
-    /* 计算timeLabeMax */
-    if(setupStruct->NFTASK_Time_Unit = NFTASK_Time_Unit_us)
-        timeLableMax = setupStruct->Time / NFTASK_TIMESLICE;
-    else if(setupStruct->NFTASK_Time_Unit = NFTASK_Time_Unit_ms)
-        timeLableMax = setupStruct->Time * 1000 / NFTASK_TIMESLICE;
+    /* 单位换算到us*时间us/每时标长度 */
+    uint32_t timeLableMax   =   setupStruct->NFTASK_Time_Unit   *
+                                setupStruct->Time               /
+                                NFTASK_TIMESLICE;
 
     /* 第一次使用 */
     if(*items == NULL){
@@ -94,10 +92,10 @@ BOOLEAN item_add (Items *items, NFTASK_SetupTypeDef *setupStruct)
     ptr = *items;
     while(ptr->NextItem !=NULL){
         ptr = ptr->NextItem;
-        if(ptr->Setup.Function == setupStruct->Function){
+        if(ptr->Function == setupStruct->Function){
 
             /* 找到，直接处理 */
-            ptr->Setup = *setupStruct;
+            ptr->TimeLableMax = timeLableMax;
             ptr->TimeLable = 0;
             return TRUE;
         }
@@ -111,7 +109,8 @@ BOOLEAN item_add (Items *items, NFTASK_SetupTypeDef *setupStruct)
         return FALSE;
 
     /* 填充新项目 */
-    ptr->Setup = *setupStruct;
+    ptr->Function = setupStruct->Function;
+    ptr->TimeLableMax = timeLableMax;
     ptr->TimeLable = 0;
     ptr->NextItem = NULL;
 
@@ -127,7 +126,6 @@ BOOLEAN item_add (Items *items, NFTASK_SetupTypeDef *setupStruct)
 * \retval false     失败
 * \retval ture      成功
 */
-//todo: 发现了bug 会卡在while(ptr->NextItem != NULL);中!!!!!
 BOOLEAN item_del (Items items, NFTASK_Function pfunc)
 {
     Item *ptr = items;
@@ -137,7 +135,7 @@ BOOLEAN item_del (Items items, NFTASK_Function pfunc)
         return FALSE;
 
     do{
-        if(ptr->NextItem->Setup.Function == pfunc){
+        if(ptr->NextItem->Function == pfunc){
             /* 删除链表中该项 */
             tmpPtr = ptr->NextItem->NextItem;
             free(ptr->NextItem);
@@ -168,7 +166,7 @@ void excuteFunctions (Items items, BOOLEAN direct)
     if(direct){
         while(ptr->NextItem != NULL){
             ptr = ptr->NextItem;
-            (*(ptr->Setup.Function)) ();    /* 执行函数 */
+            (*(ptr->Function)) ();    /* 执行函数 */
         }
     }
     else{
@@ -179,9 +177,9 @@ void excuteFunctions (Items items, BOOLEAN direct)
             (ptr->TimeLable)++;
 
             /* 时标达到预设定标值 */
-            if(ptr->TimeLable == ptr->Setup.Prescaler){
+            if(ptr->TimeLable == ptr->TimeLableMax){
                 ptr->TimeLable = 0;
-                (*(ptr->Setup.Function)) ();    /* 执行函数 */
+                (*(ptr->Function)) ();    /* 执行函数 */
             }
         }
     }
@@ -260,7 +258,7 @@ BOOLEAN NFTASK_SetupDelete (NFTASK_Function pfunc, NFTASK_Type_Enum NFTASK_TYPE)
 * \details 如果需要用到 无限循环执行/定时执行 功能
 *          则需要在主循环中调用该子程序
 */
-void NFTASK_Run (void)
+void NFTASK_Run(void)
 {
     if(timeUp){
         timeUp = 0;

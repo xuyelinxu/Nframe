@@ -18,8 +18,8 @@
 */
 
 /** Define to prevent recursive inclusion ------------------------------------*/
-#ifndef _NFRAME_H_
-#define _NFRAME_H_
+#ifndef NFRAME_H_
+#define NFRAME_H_
 
 #ifdef __cplusplus
 extern "C" {
@@ -137,6 +137,14 @@ typedef unsigned char BOOLEAN;              /**< \brief BOOLEAN */
 /** @} */
 
 
+
+//#include "nfdebug.h"
+#include "nftask.h"
+//#include "nfmsg.h"
+//#include "nffsm.h"
+		
+		
+
 /** Exported Functions -------------------------------------------------------*/
 
 static NF_INLINE
@@ -151,17 +159,14 @@ void NFRAME_Init(void)
 //
 //}
 //
+
 static NF_INLINE
 void NFRAME_Run(void)
 {
-
+    NFTASK_Run();
 }
 
 
-//#include "nfdebug.h"
-#include "nftask.h"
-#include "nfmsg.h"
-//#include "nffsm.h"
 /*******************************************************************************
  * extern “C”
  */

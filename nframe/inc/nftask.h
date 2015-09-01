@@ -23,8 +23,8 @@ typedef void (*NFTASK_Function)(void);
 
 
 typedef enum {
-    NFTASK_Time_Unit_us    = 0,     /**< \brief us微秒 */
-    NFTASK_Time_Unit_ms,            /**< \brief ms毫秒 */
+    NFTASK_TIME_UNIT_US = 1,                /**< \brief us微秒 */
+    NFTASK_TIME_UNIT_MS = 1000,             /**< \brief ms毫秒 */
 } NFTASK_Time_Unit_Enum;
 
 typedef struct{
@@ -49,7 +49,8 @@ typedef enum {
 /** Exported variables -------------------------------------------------------*/
 
 /** Exported functions -------------------------------------------------------*/
-void NFTASK_Run (void);
+
+void NFTASK_Run(void);
 uint8_t NFTASK_Setup (  NFTASK_SetupTypeDef  *NFTASK_SetupStruct,
                         NFTASK_Type_Enum      NFTASK_TYPE   );
 uint8_t NFTASK_SetupDelete (NFTASK_Function pfunc, NFTASK_Type_Enum NFTASK_TYPE);

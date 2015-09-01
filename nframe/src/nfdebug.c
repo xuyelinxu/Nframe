@@ -9,13 +9,12 @@
 */
 
 /** Includes -----------------------------------------------------------------*/
-#include "debug.h"
+#include "nframe.h"
 #include "string.h"
-#include "stm32f10x.h"
+
 #include <stdio.h>
 #include <stdlib.h>
 
-#include "ctrl_system.h"
 
 #ifdef __GNUC__
 /* With GCC/RAISONANCE, small printf (option LD Linker->Libraries->Small printf
