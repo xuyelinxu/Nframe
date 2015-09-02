@@ -80,7 +80,7 @@ BOOLEAN item_add (Items *items, NFTASK_SetupTypeDef *setupStruct)
     if(*items == NULL){
 
         /* 列表中第一个项目为空项目 */
-        *items = (Item*)NF_MALLOC(sizeof(Item));	// (Item*) malloc(sizeof(Item));           
+        *items = NF_MALLOC_VAR(Item);//(Item*)NF_MALLOC(sizeof(Item));	// (Item*) malloc(sizeof(Item));
         if (*items == NULL)
             return FALSE;
 
@@ -103,7 +103,7 @@ BOOLEAN item_add (Items *items, NFTASK_SetupTypeDef *setupStruct)
     }
 
     /* 未找到,添加新项目 */
-    ptr->NextItem = (Item*)NF_MALLOC(sizeof(Item));    // (Item*) malloc( sizeof(Item) );
+    ptr->NextItem = NF_MALLOC_VAR(Item);//(Item*)NF_MALLOC(sizeof(Item));    // (Item*) malloc( sizeof(Item) );
     ptr = ptr->NextItem;
     if (ptr == NULL)
         return FALSE;

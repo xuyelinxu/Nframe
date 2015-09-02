@@ -72,7 +72,7 @@ typedef unsigned char BOOLEAN;              /**< \brief BOOLEAN */
     #define NF_MALLOC(size)  ( NFMEM_Malloc(size) )
 
     /** \brief 为一个vartype类型的变量申请内存 */
-    #define NF_MALLOC_VAR(vartype)  ( ((#vartype)*)(NFMEM_Malloc(sizeof(#vartype))) )
+    #define NF_MALLOC_VAR(vartype) ( (vartype*)(NFMEM_Malloc(sizeof(vartype))) )
 
     /** \brief 释放内存 */
     #define NF_FREE(ptr)            ( NFMEM_Free(ptr) )
@@ -86,7 +86,7 @@ typedef unsigned char BOOLEAN;              /**< \brief BOOLEAN */
     #define NF_MALLOC(size)  ( malloc(size) )
 
     /** \brief 为一个vartype类型的变量申请内存 */
-    #define NF_MALLOC_VAR(vartype)  ( ((#vartype)*)(malloc(sizeof(#vartype))) )
+    #define NF_MALLOC_VAR(vartype)  ( (vartype*)(malloc(sizeof(vartype))) )
 
     /** \brief 释放内存 */
     #define NF_FREE(ptr)            ( free(ptr) )
