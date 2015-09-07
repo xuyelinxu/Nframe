@@ -13,27 +13,20 @@
 #define _NFDEBUG_H_
 
 /* Includes ------------------------------------------------------------------*/
-#include <stdio.h>
-#include "stm32f10x.h"
+#include "nframe_common.h"
+
 
 /* Exported MACRO ------------------------------------------------------------*/
 
-#define NFDEBUG_Write(parameters)       #ifdef NFDEBUG          \
-                                        printf(parameters);     \
-                                        #endif
+//#define NFDEBUG_Write(parameters)       #ifdef NFDEBUG          \
+//                                        printf(parameters);     \
+//                                        #endif
 
 /* Exported Functions --------------------------------------------------------*/
 
-
-
-static NF_INLINE
-void DEBUG_Write(const char *str)
-{
-
-}
+void NFDEBUG_Init(void);
 
 void USART_Configuration(void);
-void USART1_IRQHandler(void);
 void USART_RCC_Configuration(void);
 void USART_GPIO_Configuration(void);
 

@@ -175,17 +175,27 @@
 		<Unit filename="..\startup_armgcc\startup_stm32f10x_hd.s">
 			<Option compilerVar="ASM" />
 		</Unit>
+		<Unit filename="..\user\nfmsg_example.c">
+			<Option compilerVar="CC" />
+		</Unit>
 		<Unit filename="..\user\nframe_config.c">
 			<Option compilerVar="CC" />
 		</Unit>
 		<Unit filename="..\user\nftask_example.c">
 			<Option compilerVar="CC" />
+			<Option compile="0" />
+			<Option link="0" />
 		</Unit>
 		<Unit filename="..\user\stm32f10x_conf.h" />
+		<Unit filename="..\..\..\nframe\inc\nfdebug.h" />
 		<Unit filename="..\..\..\nframe\inc\nfmsg.h" />
 		<Unit filename="..\..\..\nframe\inc\nframe.h" />
 		<Unit filename="..\..\..\nframe\inc\nframe_common.h" />
+		<Unit filename="..\..\..\nframe\inc\nframe_config.h" />
 		<Unit filename="..\..\..\nframe\inc\nftask.h" />
+		<Unit filename="..\..\..\nframe\src\nfdebug.c">
+			<Option compilerVar="CC" />
+		</Unit>
 		<Unit filename="..\..\..\nframe\src\nfmsg.c">
 			<Option compilerVar="CC" />
 		</Unit>

@@ -20,11 +20,87 @@
 
 /** 硬件相关子程序 ----------------------------------------------------------*/
 
+/**
+* \brief 使用NFDEBUG模块，需要根据硬件环境编写该部分程序
+*/
+#ifdef NFDEBUG_ENABLE
+
+/**
+* \brief 相关硬件初始化
+*/
+void NFDEBUG_HardwareInit(void)
+{
+    USART_InitTypeDef USART_InitStruct;
+    NVIC_InitTypeDef NVIC_InitStructure;
+    GPIO_InitTypeDef GPIO_InitStruct;
+
+    RCC_APB2PeriphClockCmd(RCC_APB2Periph_GPIOA|RCC_APB2Periph_USART1, ENABLE);
+
+    USART_InitStruct.USART_BaudRate = 115200;
+    USART_InitStruct.USART_StopBits = USART_StopBits_1;
+    USART_InitStruct.USART_WordLength = USART_WordLength_8b;
+    USART_InitStruct.USART_Parity = USART_Parity_No;
+    USART_InitStruct.USART_HardwareFlowControl = USART_HardwareFlowControl_None;
+    USART_InitStruct.USART_Mode = USART_Mode_Tx | USART_Mode_Rx;
+
+    NVIC_InitStructure.NVIC_IRQChannel = USART1_IRQn;
+    NVIC_InitStructure.NVIC_IRQChannelPreemptionPriority = 1;
+    NVIC_InitStructure.NVIC_IRQChannelSubPriority = 0;
+    NVIC_InitStructure.NVIC_IRQChannelCmd = ENABLE;
+    NVIC_Init(&NVIC_InitStructure);
+
+    USART_Init(USART1, &USART_InitStruct);
+    USART_ITConfig(USART1,USART_IT_RXNE,ENABLE);    //使能接收中断
+    USART_Cmd(USART1, ENABLE);  //使能串口1
+
+    GPIO_InitStruct.GPIO_Mode = GPIO_Mode_AF_PP;
+    GPIO_InitStruct.GPIO_Pin = GPIO_Pin_9;
+    GPIO_InitStruct.GPIO_Speed = GPIO_Speed_2MHz;
+    GPIO_Init(GPIOA, &GPIO_InitStruct);
+
+    GPIO_InitStruct.GPIO_Mode = GPIO_Mode_IN_FLOATING;
+    GPIO_InitStruct.GPIO_Pin = GPIO_Pin_10;
+    GPIO_Init(GPIOA, &GPIO_InitStruct);
+}
+
+/**
+* \brief 收发中断处理
+* 收到
+*/
+//void USART1_IRQHandler(void)
+//{
+//  if(USART_GetFlagStatus(USART1,USART_IT_RXNE) == SET){
+//    USART_ClearFlag(USART1,USART_IT_RXNE);
+//
+//    usart_buff[usart_p] = USART_ReceiveData(USART1);
+//    /* 换行符或0 表示一条信息结束 */
+//    if(usart_buff[usart_p] == '\r' || usart_buff[usart_p] == '\n' || usart_buff[usart_p] == '#' ){
+//      /* throwaway "\r\n" */
+//      usart_buff[usart_p] = '\0';
+//      usart_p = 0;
+//
+//      CTRL_MSG msg;
+//      msg.MsgType = CTRL_MSG_TYPE_DEBUG_STRING;
+//      msg.Msg = (uint32_t)usart_buff;
+//      CTRL_msgIn(&msg,0);
+//
+//    }
+//    else{
+//      usart_p++;
+//    }
+//  }
+//
+//  if(USART_GetITStatus(USART1, USART_IT_RXNE) != RESET){
+//    USART_ClearITPendingBit(USART1, USART_IT_RXNE);
+//  }
+//
+//}
+
+#endif  /* NFDEBUG_ENABLE */
 
 /**
 * \brief 使用NFTASK模块，需要根据硬件环境编写该部分程序
 */
-
 #ifdef NFTASK_ENABLE
 
 /**
@@ -92,7 +168,7 @@ void TIM2_IRQHandler (void)
 
 #endif  /* NFCONFIG_NFTASK */
 
-/** Private functions -------------------------------------------------------**/
+
 
 
 /* end of file */

@@ -9,12 +9,7 @@
 */
 
 /** Includes -----------------------------------------------------------------*/
-#include "nframe.h"
-#include "string.h"
-
-#include <stdio.h>
-#include <stdlib.h>
-
+#include "nfdebug.h"
 
 #ifdef __GNUC__
 /* With GCC/RAISONANCE, small printf (option LD Linker->Libraries->Small printf
@@ -24,88 +19,37 @@
 #define PUTCHAR_PROTOTYPE int fputc(int ch, FILE *f)
 #endif /* __GNUC__ */
 
+static char buffer_send[NFDEBUG_BUFFER_SIZE];
+static char buffer_receive[NFDEBUG_BUFFER_SIZE];
+static char *pBuffer_send = buffer_send;
+static char *pBuffer_receive = buffer_receive;
+
+void NFDEBUG_Init(void)
+{
+
+    NFDEBUG_HardwareInit();
+
+
+}
+
 
 /**
-  * @brief  开启GPIOA,串口1时钟
-  * @param  None
-  * @retval None
-  * @note  对于某些GPIO上的默认复用功能可以不开启服用时钟，如果用到复用功能的重
-           映射，则需要开启复用时钟
-  */
-void USART_RCC_Configuration(void)
-{
-//	RCC_APB2PeriphClockCmd(RCC_APB2Periph_AFIO,ENABLE);//开复用时钟
-	RCC_APB2PeriphClockCmd(RCC_APB2Periph_GPIOA|RCC_APB2Periph_USART1,ENABLE);
-}
+* \brief 发送字符串子程序 重定义printf函数
+*/
+//PUTCHAR_PROTOTYPE
+//{
+//	USART_SendData(USART1,(u8)ch);
+//
+//	/* Loop until the end of transmission */
+//	while (USART_GetFlagStatus(USART1, USART_FLAG_TXE) == RESET);
+//
+//	return ch;
+//}
 
-/**
-  * @brief  init USART GPIO
-  * @param  None
-  * @retval None
-  */
-void USART_GPIO_Configuration(void)
-{
-  GPIO_InitTypeDef GPIO_InitStruct;
 
-  GPIO_InitStruct.GPIO_Mode = GPIO_Mode_AF_PP;
-  GPIO_InitStruct.GPIO_Pin = GPIO_Pin_9;
-  GPIO_InitStruct.GPIO_Speed = GPIO_Speed_2MHz;
 
-  GPIO_Init(GPIOA, &GPIO_InitStruct);
 
-  GPIO_InitStruct.GPIO_Mode = GPIO_Mode_IN_FLOATING;
-  GPIO_InitStruct.GPIO_Pin = GPIO_Pin_10;
 
-  GPIO_Init(GPIOA, &GPIO_InitStruct);
-}
-
-/**
-  * @brief  set and enable USART1
-  * @param  None
-  * @retval None
-  */
-void USART_Configuration(void)
-{
-  USART_InitTypeDef USART_InitStruct;
-  NVIC_InitTypeDef NVIC_InitStructure;
-
-  USART_RCC_Configuration();
-
-  USART_InitStruct.USART_BaudRate = 115200;
-  USART_InitStruct.USART_StopBits = USART_StopBits_1;
-  USART_InitStruct.USART_WordLength = USART_WordLength_8b;
-  USART_InitStruct.USART_Parity = USART_Parity_No;
-  USART_InitStruct.USART_HardwareFlowControl = USART_HardwareFlowControl_None;
-  USART_InitStruct.USART_Mode = USART_Mode_Tx | USART_Mode_Rx;
-
-  NVIC_InitStructure.NVIC_IRQChannel = USART1_IRQn;
-  NVIC_InitStructure.NVIC_IRQChannelPreemptionPriority = 1;
-  NVIC_InitStructure.NVIC_IRQChannelSubPriority = 0;
-  NVIC_InitStructure.NVIC_IRQChannelCmd = ENABLE;
-  NVIC_Init(&NVIC_InitStructure);
-
-  USART_Init(USART1, &USART_InitStruct);
-  USART_ITConfig(USART1,USART_IT_RXNE,ENABLE);//使能接收中断
-  USART_Cmd(USART1, ENABLE);//使能串口1
-
-  USART_GPIO_Configuration();
-}
-
-PUTCHAR_PROTOTYPE
-{
-	/* Place your implementation of fputc here */
-	/* e.g. write a character to the USART */
-	USART_SendData(USART1,(u8)ch);
-
-	/* Loop until the end of transmission */
-	while (USART_GetFlagStatus(USART1, USART_FLAG_TXE) == RESET);
-
-	return ch;
-}
-
-//recive
-u8 usart_buff[50];
-u8 usart_p=0;
 
 //void deal(void){
 //  u8 i=0;
@@ -125,33 +69,7 @@ u8 usart_p=0;
 //
 //}
 
-void USART1_IRQHandler(void){
-  if(USART_GetFlagStatus(USART1,USART_IT_RXNE) == SET){
-    USART_ClearFlag(USART1,USART_IT_RXNE);
 
-    usart_buff[usart_p] = USART_ReceiveData(USART1);
-    /* 换行符或0 表示一条信息结束 */
-    if(usart_buff[usart_p] == '\r' || usart_buff[usart_p] == '\n' || usart_buff[usart_p] == '#' ){
-      /* throwaway "\r\n"*/
-      usart_buff[usart_p] = '\0';
-      usart_p = 0;
-
-      CTRL_MSG msg;
-      msg.MsgType = CTRL_MSG_TYPE_DEBUG_STRING;
-      msg.Msg = (uint32_t)usart_buff;
-      CTRL_msgIn(&msg,0);
-
-    }
-    else{
-      usart_p++;
-    }
-  }
-
-  if(USART_GetITStatus(USART1, USART_IT_RXNE) != RESET){
-    USART_ClearITPendingBit(USART1, USART_IT_RXNE);
-  }
-
-}
 
 
 /*****END OF FILE****/

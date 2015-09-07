@@ -482,14 +482,15 @@
 	"nframe_common.h"
 	"nftask.h"
 
-1441161703 e:\noodlefightertmp\nframe\nframe\inc\nframe_common.h
+1441166433 e:\noodlefightertmp\nframe\nframe\inc\nframe_common.h
+	<stdio.h>
 	<stdlib.h>
 	<stdint.h>
 	"nframe_config.h"
 
-1440868855 e:\noodlefightertmp\nframe\nframe\inc\nframe_config.h
+1441167516 e:\noodlefightertmp\nframe\nframe\inc\nframe_config.h
 
-1441126898 e:\noodlefightertmp\nframe\nframe\inc\nftask.h
+1441164561 e:\noodlefightertmp\nframe\nframe\inc\nftask.h
 	"nframe_common.h"
 
 1441037846 source:e:\noodlefightertmp\nframe\examples\stm32f10x\user\nftask_example.c
@@ -499,4 +500,18 @@
 
 1440868856 source:e:\noodlefightertmp\nframe\nframe\src\nfmsg.c
 	"nframe.h"
+
+1441207037 source:e:\noodlefightertmp\nframe\examples\stm32f10x\user\nfmsg_example.c
+	"stm32f10x.h"
+	"stm32f10x_gpio.h"
+	"nframe.h"
+
+1441161748 source:e:\noodlefightertmp\nframe\nframe\src\nftask.c
+	"nftask.h"
+
+1441207085 source:e:\noodlefightertmp\nframe\nframe\src\nfdebug.c
+	"nfdebug.h"
+
+1441207118 e:\noodlefightertmp\nframe\nframe\inc\nfdebug.h
+	"nframe_common.h"
 
