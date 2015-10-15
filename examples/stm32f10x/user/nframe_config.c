@@ -25,6 +25,15 @@
 */
 #ifdef NFDEBUG_ENABLE
 
+#define NFDEBUG_COMMANDLIST_SIZE    0
+
+#if NFDEBUG_COMMANDLIST_SIZE != 0
+NFDEBUG_CommandDef NFDEBUG_CommandList[NFDEBUG_COMMANDLIST_SIZE] =
+{
+
+};
+#endif
+
 /**
 * \brief 相关硬件初始化
 */
@@ -95,6 +104,21 @@ void NFDEBUG_HardwareInit(void)
 //  }
 //
 //}
+
+
+
+/**
+* \brief DEBUG模块会调用这个函数来发送调试文本
+*/
+NF_INLINE
+void NFDEBUG_SendChar (uint8_t ch)
+{
+	USART_SendData(USART1,(uint8_t)ch);
+
+	/* Loop until the end of transmission */
+	while (USART_GetFlagStatus(USART1, USART_FLAG_TXE) == RESET);
+
+}
 
 #endif  /* NFDEBUG_ENABLE */
 

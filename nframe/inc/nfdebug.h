@@ -8,27 +8,48 @@
 * \endinternal
 */
 
-/* Define to prevent recursive inclusion -------------------------------------*/
+/** Define to prevent recursive inclusion -------------------------------------/
 #ifndef _NFDEBUG_H_
 #define _NFDEBUG_H_
 
-/* Includes ------------------------------------------------------------------*/
+/** Includes -----------------------------------------------------------------*/
 #include "nframe_common.h"
 
 
-/* Exported MACRO ------------------------------------------------------------*/
+/** Exported typedef --------------------------------------------------------**/
 
-//#define NFDEBUG_Write(parameters)       #ifdef NFDEBUG          \
-//                                        printf(parameters);     \
-//                                        #endif
+typedef void (*NFDEBUG_CommandDealFunc)(uint8_t     ParmCount,
+                                        char      **Parm );
 
-/* Exported Functions --------------------------------------------------------*/
+/* NFDEBUG_CommandDef */
+typedef struct {
+    NFDEBUG_CommandDealFunc     CommandDealFunc;
+    uint8_t                     CommandStrLength;
+    char                       *CommandStr;
+} NFDEBUG_CommandDef;
 
-void NFDEBUG_Init(void);
+///* NFDEBUG_CommandMessageDef */
+//typedef struct {
+//    uint8_t     ParmCount;
+//    char      **Parm;
+//} NFDEBUG_CommandMessageDef;
 
-void USART_Configuration(void);
-void USART_RCC_Configuration(void);
-void USART_GPIO_Configuration(void);
+/** Exported MACRO -----------------------------------------------------------*/
+
+/* C99 */
+#ifdef NFDEBUG_ENABLE
+#define NFDEBUG_(format,...) printf(""format"\n", ##__VA_ARGS__)
+#define NFDEBUG(format,...) printf("["__FILE__", %05d] "format"\n", __LINE__, ##__VA_ARGS__)
+#else
+#define NFDEBUG_(format,...)
+#define NFDEBUG(format,...)
+#endif
+
+
+/** Exported Functions -------------------------------------------------------*/
+
+void NFDEBUG_Init (void);
+void NFDEBUG_ReciveChar (uint8_t ch);
 
 #endif
 

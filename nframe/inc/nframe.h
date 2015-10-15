@@ -69,7 +69,14 @@ void NFRAME_Init(void)
 static NF_INLINE
 void NFRAME_Run(void)
 {
+    #ifdef NFTASK_ENABLE
     NFTASK_Run();
+    #endif
+
+    #ifdef NFDEBUG_ENABLE
+    NFDEBUG_Run();
+    #endif
+
 }
 
 /*******************************************************************************

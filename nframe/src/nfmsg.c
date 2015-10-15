@@ -65,8 +65,8 @@ NFMSG_PointHandle NFMSG_CreatePoint(NFMSG_MsgHandlerFunc pfnMsgHandler)
 *
 * \retval 消息点句柄
 */
-BOOLEAN NFMSG_AddMsgHandler(NFMSG_PointHandle      PointHandle,
-                         NFMSG_MsgHandlerFunc   pfnMsgHandler)
+BOOLEAN NFMSG_AddMsgHandler(    NFMSG_PointHandle      PointHandle,
+                                NFMSG_MsgHandlerFunc   pfnMsgHandler)
 {
     PointDef *pPoint;
     MsgHandlerDef *pHandler;
