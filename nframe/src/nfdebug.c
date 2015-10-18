@@ -11,6 +11,8 @@
 /** Includes -----------------------------------------------------------------*/
 #include "nfdebug.h"
 
+#include <string.h>
+
 #ifdef __GNUC__
 
 /* With GCC/RAISONANCE, small printf (option LD Linker->Libraries->Small printf
@@ -20,18 +22,75 @@
 #define PUTCHAR_PROTOTYPE int fputc(int ch, FILE *f)
 #endif /* __GNUC__ */
 
+extern NFDEBUG_CommandDef NFDEBUG_CommandList[NFDEBUG_COMMANDLIST_SIZE];
 
-static char gRxdBuffer[NFDEBUG_BUFFER_SIZE];
-static uint16_t gRxdBufferTop = 0;
-static uint8_t gRxdComplete = 0;
+static volatile char rxdBuffer[NFDEBUG_BUFFER_SIZE];
+static volatile uint16_t rxdBufferTop = 0;
+
+#define rxdDealQueueEmpty (rxdDealQueueFront == rxdDealQueueRear)
+static volatile char *(rxdDealQueue[NFDEBUG_COMMAND_QUEUE_LENGTH]);
+static volatile uint8_t rxdDealQueueFront, rxdDealQueueRear;
+
+static __INLINE
+char* rxdDealQueueIn(char *str, uint16_t length)
+{
+    uint8_t rear;
+    char *retStr;
+
+    /* Cal Rear */
+    rear = rxdDealQueueRear+1;
+    if(rear>=NFDEBUG_COMMAND_QUEUE_LENGTH)
+        rear = 0;
+
+    if(rear == rxdDealQueueFront){   /* Full */
+        NFDEBUG("rxdDealQueue Full!");
+        retStr = NULL;
+    }
+    else{
+        rxdDealQueueRear = rear;
+        retStr = (char*)NF_MALLOC(length);
+        if(retStr == NULL){
+            NFDEBUG("rxdDealQueueIn Error!");
+            goto rxdDealQueueIn_EXIT;
+        }
+        strcpy(retStr, (const char*)rxdBuffer);
+        rxdDealQueue[rear] = retStr;
+    }
+
+rxdDealQueueIn_EXIT:
+    return retStr;
+}
+
+static
+char* rxdDealQueueOut()
+{
+    char *retStr;
+
+    if(rxdDealQueueFront == rxdDealQueueRear){  /* Empty */
+        retStr = NULL;
+    }
+    else{
+        retStr = (char*)rxdDealQueue[rxdDealQueueFront];
+
+        /* 移动队列头部 */
+        if(rxdDealQueueFront == NFDEBUG_COMMAND_QUEUE_LENGTH-1){
+            rxdDealQueueFront = 0;
+        }
+        else{
+            rxdDealQueueFront++;
+        }
+    }
+
+    return retStr;
+}
 
 void NFDEBUG_Init (void)
 {
 
     /* Clear Buffer */
-    gRxdBufferTop = 0;
+    rxdBufferTop = 0;
 
-    gRxdComplete = 0;
+    rxdDealQueueFront = rxdDealQueueRear = 0;
 
     NFDEBUG_HardwareInit();
 }
@@ -48,61 +107,54 @@ PUTCHAR_PROTOTYPE
 
 void NFDEBUG_ReciveChar (uint8_t ch)
 {
-    uint16_t i;
-
     if(ch == '#')
     {
         /* End of Message */
-        gRxdBuffer[gRxdBufferTop] = '\0';
-        gRxdComplete = 1;
-
+        rxdBuffer[rxdBufferTop] = '\0';
+        rxdDealQueueIn((char*)rxdBuffer, rxdBufferTop);
     }
     else
     {
         /* Save to buffer */
-        gRxdBuffer[gRxdBufferTop] = ch;
+        rxdBuffer[rxdBufferTop] = ch;
 
-        gRxdBufferTop++;
-        if(gRxdBufferTop >= NFDEBUG_BUFFER_SIZE){   /* Overflow */
-            gRxdBufferTop = 0 ;     /* Throw away */
+        rxdBufferTop++;
+        if(rxdBufferTop >= NFDEBUG_BUFFER_SIZE){   /* Overflow */
+            rxdBufferTop = 0 ;     /* Throw away */
             return;
-    }
+        }
 
     }
 }
 
 void NFDEBUG_Run (void)
 {
-    uint8_t i,parmCount,parmsLength,parms[NFDEBUG_COMMAND_PARM_MAX];
-    char *pStr;
+#if NFDEBUG_COMMANDLIST_SIZE != 0
+    uint8_t i,j,parmCount,parmsLength;
+    char *pStr,*pStrParms,*(parms[NFDEBUG_COMMAND_PARM_MAX]);
 
-    if(gRxdComplete){
-        gRxdComplete = 0;
-        gRxdBufferTop = 0 ; /* Clear Buffer */
+    if(!rxdDealQueueEmpty){
+        pStr = rxdDealQueueOut();
+        rxdBufferTop = 0 ; /* Clear Buffer */
 
         /* Search Command */
         for(i = 0; i<NFDEBUG_COMMANDLIST_SIZE; i++){
             if(strncasecmp( (const char *)(NFDEBUG_CommandList[i].CommandStr),
-                            gRxdBuffer,
+                            pStr,
                             NFDEBUG_CommandList[i].CommandStrLength) == 0){
 
 
-                pStr = gRxdBuffer + NFDEBUG_CommandList[i].CommandStrLength;
-                parmsLength = strlen(pStr);
+                pStrParms = pStr + NFDEBUG_CommandList[i].CommandStrLength;
+                parmsLength = strlen(pStrParms);
 
-                parms[0] = pStr;
-                if(pStr=='\0'){
-                    parmCount = 0;
-                }
-                else{
-                    parmCount = 1;
-                }
+                parms[0] = pStrParms;
+                parmCount = (pStrParms=='\0') ? 0 : 1 ;
 
-                for(i=0; i<parmsLength; i++){
-                    if(pStr[i]==' '){
-                        pStr[i] = '\0';
+                for(j=0; j<parmsLength; j++){
+                    if(pStrParms[j]==' '){
+                        pStrParms[j] = '\0';
 
-                        parms[parmCount] = pStr+i+1;
+                        parms[parmCount] = pStrParms+j+1;
                         parmCount++;
 
                         /* if overflow, throw away */
@@ -118,8 +170,13 @@ void NFDEBUG_Run (void)
                 NFDEBUG_CommandList[i].CommandDealFunc(parmCount, parms);
 
                 break;
-            }
-        }
+            }   /* if */
+        }   /* for(i = 0; i<NFDEBUG_COMMANDLIST_SIZE; i++) */
+
+        NF_FREE(pStr);
     }
+#endif
+
 }
+
 /*****END OF FILE****/

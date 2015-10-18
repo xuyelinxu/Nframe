@@ -25,15 +25,6 @@
 */
 #ifdef NFDEBUG_ENABLE
 
-#define NFDEBUG_COMMANDLIST_SIZE    0
-
-#if NFDEBUG_COMMANDLIST_SIZE != 0
-NFDEBUG_CommandDef NFDEBUG_CommandList[NFDEBUG_COMMANDLIST_SIZE] =
-{
-
-};
-#endif
-
 /**
 * \brief 相关硬件初始化
 */
@@ -74,51 +65,19 @@ void NFDEBUG_HardwareInit(void)
 
 /**
 * \brief 收发中断处理
-* 收到
 */
-//void USART1_IRQHandler(void)
-//{
-//  if(USART_GetFlagStatus(USART1,USART_IT_RXNE) == SET){
-//    USART_ClearFlag(USART1,USART_IT_RXNE);
-//
-//    usart_buff[usart_p] = USART_ReceiveData(USART1);
-//    /* 换行符或0 表示一条信息结束 */
-//    if(usart_buff[usart_p] == '\r' || usart_buff[usart_p] == '\n' || usart_buff[usart_p] == '#' ){
-//      /* throwaway "\r\n" */
-//      usart_buff[usart_p] = '\0';
-//      usart_p = 0;
-//
-//      CTRL_MSG msg;
-//      msg.MsgType = CTRL_MSG_TYPE_DEBUG_STRING;
-//      msg.Msg = (uint32_t)usart_buff;
-//      CTRL_msgIn(&msg,0);
-//
-//    }
-//    else{
-//      usart_p++;
-//    }
-//  }
-//
-//  if(USART_GetITStatus(USART1, USART_IT_RXNE) != RESET){
-//    USART_ClearITPendingBit(USART1, USART_IT_RXNE);
-//  }
-//
-//}
-
-
-
-/**
-* \brief DEBUG模块会调用这个函数来发送调试文本
-*/
-NF_INLINE
-void NFDEBUG_SendChar (uint8_t ch)
+void USART1_IRQHandler(void)
 {
-	USART_SendData(USART1,(uint8_t)ch);
+    if(USART_GetFlagStatus(USART1,USART_IT_RXNE) == SET){
+        USART_ClearFlag(USART1,USART_IT_RXNE);
 
-	/* Loop until the end of transmission */
-	while (USART_GetFlagStatus(USART1, USART_FLAG_TXE) == RESET);
-
+        NFDEBUG_ReciveChar(USART_ReceiveData(USART1));
+    }
 }
+
+
+
+
 
 #endif  /* NFDEBUG_ENABLE */
 

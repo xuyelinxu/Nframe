@@ -46,7 +46,7 @@ extern "C" {
 ///** @} */
 
 
-//#include "nfdebug.h"
+#include "nfdebug.h"
 #include "nftask.h"
 //#include "nfmsg.h"
 //#include "nffsm.h"
@@ -56,7 +56,7 @@ extern "C" {
 static NF_INLINE
 void NFRAME_Init(void)
 {
-
+    NFDEBUG_Init();
 }
 
 //static NF_INLINE

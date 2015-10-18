@@ -21,9 +21,9 @@ extern "C" {
 #endif
 
 /** Includes -----------------------------------------------------------------*/
+#include "nframe_common.h"
 
-
-
+#include "stm32f10x_gpio.h"
 
 /** Exported MACRO -----------------------------------------------------------*/
 
@@ -46,10 +46,17 @@ extern "C" {
  */
 
 /**< \brief 收发缓存区大小 */
-#define NFDEBUG_BUFFER_SIZE       50
+#define NFDEBUG_BUFFER_SIZE             50
 
 /**< \brief 最大调试命令参数数量 */
-#define NFDEBUG_COMMAND_PARM_MAX  8
+#define NFDEBUG_COMMAND_PARM_MAX        10
+
+/**< \brief 调试命令处理队列长度 */
+#define NFDEBUG_COMMAND_QUEUE_LENGTH    10
+
+/**< \brief DEBUG命令数量 */
+#define NFDEBUG_COMMANDLIST_SIZE        1
+
 /** @} */
 
 /*******************************************************************************
@@ -98,12 +105,23 @@ typedef enum {
 
 /** Exported functions -------------------------------------------------------*/
 
-NF_INLINE
-void NFDEBUG_SendChar (uint8_t ch);
+
+/**
+* \brief DEBUG模块会调用这个函数来发送调试文本
+*/
+__inline
+void NFDEBUG_SendChar (uint8_t ch)
+{
+	USART_SendData(USART1,(uint8_t)ch);
+
+	/* Loop until the end of transmission */
+	while (USART_GetFlagStatus(USART1, USART_FLAG_TXE) == RESET);
+
+}
 
 void NFTASK_TimerInit (void);
 
-
+void NFDEBUG_HardwareInit(void);
 
 /*******************************************************************************
  * extern “C”
