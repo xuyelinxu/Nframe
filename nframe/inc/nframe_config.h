@@ -45,14 +45,16 @@ extern "C" {
  * @{
  */
 
-/**< \brief 收发缓存区大小 */
-#define NFDEBUG_BUFFER_SIZE             50
+
+/**< \brief 开启DEBUG命令功能 */
+#define NFDEBUG_COMMAND_ENABLE
+
+/**< \brief 命令接收缓存区大小 */
+#define NFDEBUG_COMMAND_BUFFER_SIZE     200
+
 
 /**< \brief 最大调试命令参数数量 */
 #define NFDEBUG_COMMAND_PARM_MAX        10
-
-/**< \brief 调试命令处理队列长度 */
-#define NFDEBUG_COMMAND_QUEUE_LENGTH    10
 
 /**< \brief DEBUG命令数量 */
 #define NFDEBUG_COMMANDLIST_SIZE        1
