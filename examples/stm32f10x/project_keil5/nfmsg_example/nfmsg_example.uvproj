@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no" ?>
-<Project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="project_projx.xsd">
+<Project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="project_proj.xsd">
 
-  <SchemaVersion>2.1</SchemaVersion>
+  <SchemaVersion>1.1</SchemaVersion>
 
   <Header>### uVision Project, (C) Keil Software</Header>
 
@@ -44,7 +44,7 @@
             <NotGenerated>0</NotGenerated>
             <InvalidFlash>1</InvalidFlash>
           </TargetStatus>
-          <OutputDirectory>.\output\</OutputDirectory>
+          <OutputDirectory>..\output\</OutputDirectory>
           <OutputName>example</OutputName>
           <CreateExecutable>1</CreateExecutable>
           <CreateLib>0</CreateLib>
@@ -361,7 +361,7 @@
               <MiscControls></MiscControls>
               <Define>USE_STDPERIPH_DRIVER, STM32F10X_HD</Define>
               <Undefine></Undefine>
-              <IncludePath>..\library\CMSIS;..\library\stm32f10x;..\library\STM32F10x_StdPeriph_Driver\inc;..\user;..\..\..\nframe\inc</IncludePath>
+              <IncludePath>..\..\library\CMSIS;..\..\library\stm32f10x;..\..\library\STM32F10x_StdPeriph_Driver\inc;..\..\..\..\nframe\inc;..\..\nftask_example</IncludePath>
             </VariousControls>
           </Cads>
           <Aads>
@@ -407,7 +407,7 @@
             <File>
               <FileName>core_cm3.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\library\CMSIS\core_cm3.c</FilePath>
+              <FilePath>..\..\library\CMSIS\core_cm3.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -417,12 +417,12 @@
             <File>
               <FileName>startup_stm32f10x_hd.s</FileName>
               <FileType>2</FileType>
-              <FilePath>..\startup_armcc\startup_stm32f10x_hd.s</FilePath>
+              <FilePath>..\..\startup_armcc\startup_stm32f10x_hd.s</FilePath>
             </File>
             <File>
               <FileName>system_stm32f10x.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\library\stm32f10x\system_stm32f10x.c</FilePath>
+              <FilePath>..\..\library\stm32f10x\system_stm32f10x.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -430,29 +430,29 @@
           <GroupName>stm32f10x_std_lib</GroupName>
           <Files>
             <File>
-              <FileName>misc.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\library\STM32F10x_StdPeriph_Driver\src\misc.c</FilePath>
-            </File>
-            <File>
-              <FileName>stm32f10x_gpio.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\library\STM32F10x_StdPeriph_Driver\src\stm32f10x_gpio.c</FilePath>
-            </File>
-            <File>
-              <FileName>stm32f10x_rcc.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\library\STM32F10x_StdPeriph_Driver\src\stm32f10x_rcc.c</FilePath>
-            </File>
-            <File>
               <FileName>stm32f10x_tim.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\library\STM32F10x_StdPeriph_Driver\src\stm32f10x_tim.c</FilePath>
+              <FilePath>..\..\library\STM32F10x_StdPeriph_Driver\src\stm32f10x_tim.c</FilePath>
             </File>
             <File>
               <FileName>stm32f10x_usart.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\library\STM32F10x_StdPeriph_Driver\src\stm32f10x_usart.c</FilePath>
+              <FilePath>..\..\library\STM32F10x_StdPeriph_Driver\src\stm32f10x_usart.c</FilePath>
+            </File>
+            <File>
+              <FileName>misc.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\library\STM32F10x_StdPeriph_Driver\src\misc.c</FilePath>
+            </File>
+            <File>
+              <FileName>stm32f10x_rcc.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\library\STM32F10x_StdPeriph_Driver\src\stm32f10x_rcc.c</FilePath>
+            </File>
+            <File>
+              <FileName>stm32f10x_gpio.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\library\STM32F10x_StdPeriph_Driver\src\stm32f10x_gpio.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -460,29 +460,29 @@
           <GroupName>nframe</GroupName>
           <Files>
             <File>
-              <FileName>nftask.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\..\nframe\src\nftask.c</FilePath>
-            </File>
-            <File>
               <FileName>nfdebug.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\..\nframe\src\nfdebug.c</FilePath>
+              <FilePath>..\..\..\..\nframe\src\nfdebug.c</FilePath>
+            </File>
+            <File>
+              <FileName>nfmsg.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\..\..\nframe\src\nfmsg.c</FilePath>
             </File>
           </Files>
         </Group>
         <Group>
-          <GroupName>user</GroupName>
+          <GroupName>nfmsg_example</GroupName>
           <Files>
+            <File>
+              <FileName>main.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\nfmsg_example\main.c</FilePath>
+            </File>
             <File>
               <FileName>nframe_config.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\user\nframe_config.c</FilePath>
-            </File>
-            <File>
-              <FileName>nfdebug_example.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\user\nfdebug_example.c</FilePath>
+              <FilePath>..\..\nfmsg_example\nframe_config.c</FilePath>
             </File>
           </Files>
         </Group>

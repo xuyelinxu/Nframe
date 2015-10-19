@@ -1,89 +1,59 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
 <EmBlocks_layout_file>
 	<ActiveTarget name="Debug" />
-	<File name="..\library\STM32F10x_StdPeriph_Driver\inc\misc.h" open="0" top="0" tabpos="1" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+	<File name="..\nfdebug_example\main.c" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="3194" topLine="73" />
+			<Cursor1 position="937" topLine="9" />
 		</Cursor>
 	</File>
-	<File name="..\library\STM32F10x_StdPeriph_Driver\src\misc.c" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+	<File name="..\nfdebug_example\nframe_config.c" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="4721" topLine="134" />
+			<Cursor1 position="3235" topLine="96" />
 		</Cursor>
 	</File>
-	<File name="..\startup_armgcc\startup_stm32f10x_hd.s" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+	<File name="..\nfdebug_example\nframe_config.h" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="8115" topLine="167" />
+			<Cursor1 position="2519" topLine="76" />
 		</Cursor>
 	</File>
-	<File name="..\user\nfdebug_example.c" open="1" top="0" tabpos="2" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+	<File name="..\nfmsg_example\main.c" open="1" top="1" tabpos="3" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="499" topLine="12" />
+			<Cursor1 position="169" topLine="0" />
 		</Cursor>
 	</File>
-	<File name="..\user\nfmsg_example.c" open="1" top="0" tabpos="6" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+	<File name="..\nftask_example\main.c" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="556" topLine="10" />
+			<Cursor1 position="712" topLine="12" />
 		</Cursor>
 	</File>
-	<File name="..\user\nframe_config.c" open="0" top="0" tabpos="1" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+	<File name="..\nftask_example\nframe_config.c" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="2408" topLine="0" />
+			<Cursor1 position="975" topLine="23" />
 		</Cursor>
 	</File>
-	<File name="..\user\nftask_example.c" open="0" top="0" tabpos="4" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+	<File name="..\nftask_example\nframe_config.h" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="510" topLine="0" />
+			<Cursor1 position="1081" topLine="29" />
 		</Cursor>
 	</File>
-	<File name="..\user\stm32f10x_conf.h" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+	<File name="..\..\..\nframe\inc\nfmsg.h" open="1" top="0" tabpos="1" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="3167" topLine="60" />
+			<Cursor1 position="995" topLine="10" />
 		</Cursor>
 	</File>
-	<File name="..\..\..\nframe\inc\nfdebug.h" open="1" top="0" tabpos="3" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+	<File name="..\..\..\nframe\inc\nftask.h" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="1122" topLine="15" />
+			<Cursor1 position="1428" topLine="10" />
 		</Cursor>
 	</File>
-	<File name="..\..\..\nframe\inc\nfmsg.h" open="0" top="0" tabpos="5" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+	<File name="..\..\..\nframe\src\nfmsg.c" open="1" top="0" tabpos="2" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="544" topLine="0" />
+			<Cursor1 position="2336" topLine="60" />
 		</Cursor>
 	</File>
-	<File name="..\..\..\nframe\inc\nframe.h" open="0" top="0" tabpos="3" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+	<File name="..\..\..\nframe\src\nftask.c" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="1060" topLine="11" />
-		</Cursor>
-	</File>
-	<File name="..\..\..\nframe\inc\nframe_common.h" open="0" top="0" tabpos="4" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="2904" topLine="1" />
-		</Cursor>
-	</File>
-	<File name="..\..\..\nframe\inc\nframe_config.h" open="1" top="0" tabpos="4" split="0" active="1" splitpos="0" zoom_1="1" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="1703" topLine="36" />
-		</Cursor>
-	</File>
-	<File name="..\..\..\nframe\inc\nftask.h" open="0" top="0" tabpos="3" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="238" topLine="0" />
-		</Cursor>
-	</File>
-	<File name="..\..\..\nframe\src\nfdebug.c" open="1" top="1" tabpos="1" split="0" active="1" splitpos="0" zoom_1="1" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="960" topLine="0" />
-		</Cursor>
-	</File>
-	<File name="..\..\..\nframe\src\nfmsg.c" open="0" top="0" tabpos="4" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="7860" topLine="271" />
-		</Cursor>
-	</File>
-	<File name="..\..\..\nframe\src\nftask.c" open="0" top="0" tabpos="2" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="3294" topLine="96" />
+			<Cursor1 position="660" topLine="2" />
 		</Cursor>
 	</File>
 </EmBlocks_layout_file>

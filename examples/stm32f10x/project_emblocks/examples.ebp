@@ -172,24 +172,30 @@
 			<Option compilerVar="CC" />
 		</Unit>
 		<Unit filename="..\library\stm32f10x\system_stm32f10x.h" />
+		<Unit filename="..\nfdebug_example\main.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="..\nfdebug_example\nframe_config.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="..\nfdebug_example\nframe_config.h" />
+		<Unit filename="..\nfmsg_example\main.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="..\nfmsg_example\nframe_config.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="..\nfmsg_example\nframe_config.h" />
+		<Unit filename="..\nftask_example\main.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="..\nftask_example\nframe_config.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="..\nftask_example\nframe_config.h" />
 		<Unit filename="..\startup_armgcc\startup_stm32f10x_hd.s">
 			<Option compilerVar="ASM" />
 		</Unit>
-		<Unit filename="..\user\nfdebug_example.c">
-			<Option compilerVar="CC" />
-		</Unit>
-		<Unit filename="..\user\nfmsg_example.c">
-			<Option compilerVar="CC" />
-		</Unit>
-		<Unit filename="..\user\nframe_config.c">
-			<Option compilerVar="CC" />
-		</Unit>
-		<Unit filename="..\user\nftask_example.c">
-			<Option compilerVar="CC" />
-			<Option compile="0" />
-			<Option link="0" />
-		</Unit>
-		<Unit filename="..\user\stm32f10x_conf.h" />
 		<Unit filename="..\..\..\nframe\inc\nfdebug.h" />
 		<Unit filename="..\..\..\nframe\inc\nfmsg.h" />
 		<Unit filename="..\..\..\nframe\inc\nframe.h" />

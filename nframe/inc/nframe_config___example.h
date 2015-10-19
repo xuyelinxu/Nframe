@@ -33,9 +33,9 @@ extern "C" {
  * @{
  */
 
-#define NFMSG_ENABLE              /**< \brief 消息管理模块 */
-#define NFTASK_ENABLE             /**< \brief 任务管理模块 */
-#define NFFSM_ENABLE              /**< \brief 有限状态机模块 */
+//#define NFMSG_ENABLE              /**< \brief 消息管理模块 */
+//#define NFTASK_ENABLE             /**< \brief 任务管理模块 */
+//#define NFFSM_ENABLE              /**< \brief 有限状态机模块 */
 #define NFDEBUG_ENABLE            /**< \brief DEBUG模块 */
 
 /** @} */

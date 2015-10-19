@@ -48,7 +48,7 @@ extern "C" {
 
 #include "nfdebug.h"
 #include "nftask.h"
-//#include "nfmsg.h"
+#include "nfmsg.h"
 //#include "nffsm.h"
 
 /** Exported Functions -------------------------------------------------------*/

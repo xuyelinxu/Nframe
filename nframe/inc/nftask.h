@@ -39,9 +39,9 @@ typedef enum {
 } NFTASK_SetupTypeDef_Enable;
 
 typedef enum {
-    NFTASK_TYPE_ENDLESS,      /**< \brief 无限循环执行 */
-    NFTASK_TYPE_TIMING,       /**< \brief 定时执行 */
-    NFTASK_TYPE_TIMINGINT     /**< \brief 定时中断执行 */
+    NFTASK_TYPE_TIMING,        /**< \brief 定时执行 */
+    NFTASK_TYPE_TIMINGINT,     /**< \brief 定时中断执行 */
+    NFTASK_TYPE_ENDLESS,       /**< \brief 无限循环执行 */
 } NFTASK_Type_Enum;
 
 /** Exported constants -------------------------------------------------------*/
