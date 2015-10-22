@@ -11,223 +11,118 @@
 /** Includes ----------------------------------------------------------------**/
 #include "nframe.h"
 
-/* 模块启用开关 */
-#ifdef NFCONFIG_NFMSG
-
 /** Private typedef ---------------------------------------------------------**/
-
-typedef struct{
-     NFMSG_pfnHandlerDef   *pfnHandler;     /**< \brief 消息处理函数指针 */
-     NFMSG_Type_Enum        MsgType;        /**< \brief 处理的消息类型 */
-     NFMSG_HandlerDef      *pNextHandler;   /**< \brief 下一个消息处理 */
-} MsgHandlerDef;        /**< \brief 消息处理者 结构体定义 */
-
-typedef struct{
-    MsgHandlerDef   *Handler;    /**< \brief 消息处理器 */
-} PointDef;                /**< \brief 消息点 结构体定义 */
-
-
 /** Private define ----------------------------------------------------------**/
-
 /** Private macro -----------------------------------------------------------**/
 /** Private variables -------------------------------------------------------**/
-static volatile NFMSG_MsgPackDef    msgQueue[NFMSG_QUEUE_LENGTH];
-static volatile uint32_t            msgQueueStartIndex = 0;
-static volatile uint32_t            msgQueueEndIndex = 0;
+
+#define msgQueueIsEmpty() (msgQueueStartIndex == msgQueueEndIndex)
+static volatile NFMSG_MsgPackDef     msgQueue[NFMSG_QUEUE_LENGTH];
+static volatile uint32_t             msgQueueStartIndex = 0;
+static volatile uint32_t             msgQueueEndIndex = 0;
+
+/* msgBuffer是一个环形缓存区 */
+static volatile uint8_t             msgBuffer[NFMSG_MSGBUFFER_LENGTH];
+static volatile uint32_t            msgBufferStartIndex = 0;
+static volatile uint32_t            msgBufferEndIndex = 0;
 
 /** Private function prototypes ---------------------------------------------**/
+void runMsgHandler(NFMSG_MsgPackDef *pMsgPack);
+BOOLEAN msgQueueAdd(NFMSG_MsgPackDef *msg);
+NFMSG_MsgPackDef *msgQueueDequeue(void);
 
 /** Private functions -------------------------------------------------------**/
 
 /**
-* \brief 创建消息点
-*
-* \param[in]        pfnMsgHandler 消息处理函数指针  \ref NFMSG_MsgHandlerFunc
-*
-* \retval 消息点句柄
-*/
-NFMSG_PointHandle NFMSG_CreatePoint(NFMSG_MsgHandlerFunc pfnMsgHandler)
-{
-    PointDef *p = NF_MALLOC_VAR(PointDef);    /* 申请内存 */
-    if(p == NULL)
-        return NULL;
-
-    p->Handler = pfnMsgHandler;
-
-    return (NFMSG_PointHandle)p;
-}
-
-/**
-* \brief 向消息点添加消息处理函数
-*
-* \param[in]        PointHandle 消息点句柄
-* \param[in]        pfnMsgHandler 消息处理函数指针  \ref NFMSG_MsgHandlerFunc
-*
-* \retval 消息点句柄
-*/
-BOOLEAN NFMSG_AddMsgHandler(    NFMSG_PointHandle      PointHandle,
-                                NFMSG_MsgHandlerFunc   pfnMsgHandler)
-{
-    PointDef *pPoint;
-    MsgHandlerDef *pHandler;
-
-    pHandler = pPoint->Handler;
-    if ( pHandler != NULL)      /* 消息点无Handler */
-    {
-        pPoint = (PointDef*)PointHandle;    /* 句柄 ---> 消息点指针 */
-        pPoint->Handler = NF_MALLOC_VAR(MsgHandlerDef);    /* 申请内存 */
-        pHandler = pPoint->Handler;     /* pHandler指向新结构体 */
-    }
-    else{                       /* 消息点有Handler */
-
-        /* 找到链表尾部 */
-        while(pHandler->pNextHandler != NULL)
-            pHandler = pHandler->pNextHandler;
-
-        pHandler->pNextHandler = NF_MALLOC_VAR(MsgHandlerDef);   /* 申请内存 */
-        pHandler = pHandler->pNextHandler;   /* pHandler指向新结构体 */
-    }
-
-    if(pHandler == NULL)
-        return false;   /* 申请内存失败 */
-
-    /* 填充消息处理者结构体 */
-    pHandler->pNextHandler    = NULL;
-    pHandler->pfnHandler     = pfnMsgHandler;
-
-    return true;
-
-}
-
-/**
-* \brief 删除一个处理函数
-*
-* \param[in]        Point   消息点句柄
-*
-* \retval true      成功
-* \retval false     失败
-*/
-BOOLEAN NFMSG_DeleteMsgHandler(NFMSG_PointHandle      PointHandle,
-                            NFMSG_MsgHandlerFunc   pfnMsgHandler)
-{
-    PointDef *pPoint;
-    MsgHandlerDef *pHandler,*pNextHandler,*pNextHandler;
-
-    pPoint = (PointDef*)PointHandle;    /* 句柄 ---> 消息点指针 */
-    pHandler = pPoint->Handler;
-
-    if(pHandler->pfnHandler == pfnMsgHandler){   /* 第一个为该函数 */
-        NF_FREE(pHandler);
-        pPoint->Handler = NULL;
-        return true;
-    }
-
-    while(pHandler->pNextHandler != NUll){
-        if(pHandler->pNextHandler->pfnHandler == pfnMsgHandler){
-
-            /* 找到 释放内存 修改链表*/
-            pNextHandler = pHandler->pNextHandler->pNextHandler;
-            NF_FREE(pHandler->pNextHandler);
-            pHandler->pNextHandler = pNextHandler;
-
-            return true;
-        }
-
-        pHandler = pHandler->pNextHandler;
-    }
-
-    return false;
-}
-
-/**
-* \brief 释放链表中所有处理函数
-* \param[in]        pHandler
+* \brief 申请msg缓存
 */
 static
-void disposeHandlers(MsgHandlerDef *pHandler)
+void *msgBufferMalloc(uint32_t len)
 {
-    MsgHandlerDef *pNextHandler;
+    uint8_t *ptr = NULL;
 
-    if(pHandler == NULL)
-        return;
+    NFRAME_InterruptDisable();
 
-    /* 先暂存指向下一个Handler的指针 释放当前Handler 直到最后一个 */
-    while( (pNextHandler = pHandler->pNextHandler) != NULL){
-        NF_FREE(pHandler);
-        pHandler = pNextHandler;
+    if(msgBufferStartIndex <= msgBufferEndIndex){
+        if(NFMSG_MSGBUFFER_LENGTH-msgBufferEndIndex >= len){
+            ptr = msgBuffer+msgBufferEndIndex;
+            msgBufferEndIndex += len;
+        }
+        else{
+            if(msgBufferStartIndex > len){
+                ptr = msgBuffer;
+                msgBufferEndIndex = len;
+            }
+        }
+    }
+    else{
+        if(msgBufferEndIndex+len < msgBufferStartIndex){
+            ptr = msgBuffer+msgBufferEndIndex;
+            msgBufferEndIndex += len;
+        }
     }
 
-    NF_FREE(pHandler);      /* 释放最后一个Handler */
+    NFRAME_InterruptEnable();
+    return (void*)ptr;
+}
 
-    return;
-
+static
+void msgBufferFree(void *ptr, uint32_t len)
+{
+    msgBufferStartIndex = (uint8_t*)ptr - msgBuffer + len;
 }
 
 /**
-* \brief 销毁消息点
-*
-* \param[in]        Point   消息点句柄
-*
-* \retval true      成功
-* \retval false     失败
+* \brief 消息队列 入队
 */
-BOOLEAN NFMSG_DisposePoint(NFMSG_PointHandle PointHandle)
+static
+BOOLEAN msgQueueAdd(NFMSG_MsgPackDef *msg)
 {
-    PointDef *pPoint;
-    MsgHandlerDef *pHandler;
+    uint32_t backup;
 
-    pPoint = (PointDef*)PointHandle;    /* 句柄 ---> 消息点指针 */
-    pHandler = pPoint->Handler;
+    NFRAME_InterruptDisable();
 
-    if(pHandler != NUll){
-        /* 释放所有Handler内存 */
-        disposeHandlers(pHandler);
-    }
-
-    /* 释放消息点内存 */
-    NF_FREE(pPoint);
-}
-
-
-static NF_INLINE
-BOOLEAN msgQueueIsEmpty()
-{
-    return (msgQueueStartIndex == msgQueueEndIndex);
-}
-
-static NF_INLINE
-void msgClearQueue()
-{
-    msgQueueStartIndex = msgQueueEndIndex = 0;
-}
-
-
-BOOLEAN msgQueueAdd(NFMSG_MsgPackDef *msg){
-    uint32_t backup = msgQueueEndIndex;
+    backup = msgQueueEndIndex;
     msgQueue[msgQueueEndIndex] = *msg;
 
-    if(++msgQueueEndIndex >= MSG_QUEUE_LENGTH)   /* Array tail */
+    if(++msgQueueEndIndex >= NFMSG_QUEUE_LENGTH)   /* Array tail */
         msgQueueEndIndex = 0;
 
     if(msgQueueEndIndex  == msgQueueStartIndex){ /* Queue full */
         msgQueueEndIndex = backup;
-        return false;
+
+        NFRAME_InterruptEnable();
+        return FALSE;
     }
 
-    return true;
+    NFRAME_InterruptEnable();
+    return TRUE;
 
 }
 
+/**
+* \brief 消息队列 出队
+*/
+static
+NFMSG_MsgPackDef *msgQueueDequeue(void)
+{
+    uint32_t backup;
 
-NFMSG_MsgDef *msgQueueDequeue(void){
-    uint32_t backup = msgQueueStartIndex;
+    if(msgQueueIsEmpty())
+        return NULL;
+
+    NFRAME_InterruptDisable();
+
+    backup = msgQueueStartIndex;
 
     msgQueueStartIndex++;
-    if(msgQueueStartIndex >= MSG_QUEUE_LENGTH){
+    if(msgQueueStartIndex >= NFMSG_QUEUE_LENGTH){
         msgQueueStartIndex = 0;
     }
 
-    return &(msgQueue[backup]);
+    NFRAME_InterruptEnable();
+
+    return (NFMSG_MsgPackDef*)&(msgQueue[backup]);
 }
 
 
@@ -243,47 +138,54 @@ BOOLEAN NFMSG_SendMsg(NFMSG_MsgPackDef *MsgPack, BOOLEAN DoItNow)
     void *pMsg;
 
     if(MsgPack == NULL)
-        return false;
+        return FALSE;
 
-    if(MsgPack->Target == NULL)
-        return false;
+    if(MsgPack->pTarget == NULL)
+        return FALSE;
 
     if(DoItNow){
         runMsgHandler(MsgPack);
-        return true;
+        return TRUE;
     }
     else{
-        /* 对Msg拷贝 */
-        pMsg = NF_MALLOC(MsgPack->MsgSize);
-        NF_MEMCPY(pMsg, MsgPack->pMsg, MsgPack->MsgSize);
-        MsgPack->pMsg = pMsg;
 
-        /* 加入消息队列 */
-        return msgQueueAdd(MsgPack);
+        /* 拷贝Msg */
+        pMsg = msgBufferMalloc(MsgPack->MsgSize);
+        if(pMsg != NULL){
+            NF_MEMCPY(pMsg, MsgPack->pMsg, MsgPack->MsgSize);
+            MsgPack->pMsg = pMsg;
+
+            /* 加入消息队列 */
+            return msgQueueAdd(MsgPack);
+        }
+        else{
+            return FALSE;
+        }
     }
 }
 
-
+static
 void runMsgHandler(NFMSG_MsgPackDef *pMsgPack)
 {
     NFMSG_CallbackMsg callbackMsg;
-    MsgHandlerDef *pmsgHandler;
+    NFMSG_MsgPointDef *pMsgPoint;
+    NFMSG_MsgHandlerDef *pMsgHandler;
+    uint8_t handlerNumber;
 
-    pmsgHandler = ((PointDef*)(pMsgPack->Target))->Handler;
+    pMsgPoint = (NFMSG_MsgPointDef*)(pMsgPack->pTarget);
+    handlerNumber = pMsgPoint->HandlerNumber;
 
-    while(pmsgHandler != NULL){
-        if( (pmsgHandler->MsgType) == (pMsgPack->MsgType)){
+    while(handlerNumber--){
+        pMsgHandler = &(pMsgPoint->Handler[handlerNumber]);
+        if( pMsgHandler->MsgType == pMsgPack->MsgType ){
 
             /* 执行Handler */
-            callbackMsg = (pmsgHandler->pfnHandler)(pMsgPack);
+            callbackMsg = (pMsgHandler->pfnHandler)(pMsgPack);
 
             /* 执行回调 */
             if(pMsgPack->pfnCallback != NULL)
                 (pMsgPack->pfnCallback)(callbackMsg);
         }
-
-        /* 下一个 */
-        pmsgHandler = pmsgHandler->pNextHandler;
     }
 }
 
@@ -291,12 +193,16 @@ void NFMSG_Run(void)
 {
     NFMSG_MsgPackDef *pMsgPack = msgQueueDequeue();       /* 队列中取出消息 */
     if(pMsgPack != NULL){
-        runMsgHandler(pMsgPack);        /* 执行 */
+        runMsgHandler(pMsgPack);        /* 执行对应的消息处理函数 */
 
-        NF_FREE(pMsgPack->pMsg);        /* 销毁其中的Msg */
+        msgBufferFree(pMsgPack->pMsg, pMsgPack->MsgSize);   /* 销毁其中的Msg */
     }
 }
 
-#endif  /* ifdef NFCONFIG_NFMSG */
+
+void NFMSG_ClearMsgQueue()
+{
+    msgQueueStartIndex = msgQueueEndIndex = 0;
+}
 
 /**END OF FILE**/

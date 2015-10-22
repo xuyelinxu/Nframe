@@ -21,27 +21,45 @@ extern "C" {
 
 /** Exported typedef --------------------------------------------------------**/
 
-typedef    intptr_t NFMSG_PointHandle;       /**< \brief 监听者句柄 */
 typedef    intptr_t NFMSG_CallbackMsg;
 
 /** \brief 发送消息回调函数 */
 typedef void (*NFMSG_CallbackFunc)(NFMSG_CallbackMsg CallbackMsg);
 
+typedef struct NFMSG_MsgPackDef NFMSG_MsgPackDef;
+
+/** \brief  */
+typedef NFMSG_CallbackMsg (*NFMSG_MsgHandlerFunc)(NFMSG_MsgPackDef  *pMsgPack);
+
+typedef struct {
+     NFMSG_MsgHandlerFunc   pfnHandler;     /**< \brief 消息处理函数指针 */
+     NFMSG_Type_Enum        MsgType;        /**< \brief 处理的消息类型 */
+} NFMSG_MsgHandlerDef;        /**< \brief 消息处理者 结构体定义 */
+
 typedef struct{
-    NFMSG_PointHandle       Sender;         /**< \brief 发送方 消息点句柄 */
-    NFMSG_PointHandle       Target;         /**< \brief 接收方 消息点句柄 */
+    uint8_t                 HandlerNumber;  /**< \brief 消息处理器数量 */
+    NFMSG_MsgHandlerDef    *Handler;        /**< \brief 消息处理器数组 */
+} NFMSG_MsgPointDef;        /**< \brief 消息点 结构体定义 */
+
+struct NFMSG_MsgPackDef{
+    NFMSG_MsgPointDef    *pSender;         /**< \brief 发送方 消息点句柄 */
+    NFMSG_MsgPointDef    *pTarget;         /**< \brief 接收方 消息点句柄 */
 
     NFMSG_Type_Enum         MsgType;        /**< \brief 消息类型 */
     intptr_t                MsgSize;        /**< \brief 消息大小 */
     void                   *pMsg;           /**< \brief 消息 */
 
-    NFMSG_CallbackFunc     *pfnCallback;    /**< \brief 回调函数 */
+    NFMSG_CallbackFunc      pfnCallback;    /**< \brief 回调函数 */
 
-} NFMSG_MsgPackDef;     /**< \brief 消息包 结构体定义 */
+};     /**< \brief 消息包 结构体定义 */
 
 
-/** \brief  */
-typedef NFMSG_CallbackMsg (*NFMSG_MsgHandlerFunc)(NFMSG_MsgPackDef  *pMsgPack);
+
+
+
+
+
+
 
 /** Exported Functions -------------------------------------------------------*/
 
@@ -56,13 +74,12 @@ typedef NFMSG_CallbackMsg (*NFMSG_MsgHandlerFunc)(NFMSG_MsgPackDef  *pMsgPack);
         }
 
 
-NFMSG_PointHandle NFMSG_CreatePoint(NFMSG_MsgHandlerFunc pfnMsgHandler);
-
-BOOLEAN NFMSG_DisposePoint(NFMSG_PointHandle Point);
-
 BOOLEAN NFMSG_SendMsg(NFMSG_MsgPackDef *MsgPack, BOOLEAN DoItNow);
 
 void NFMSG_Run(void);
+
+void NFMSG_ClearMsgQueue(void);
+
 /**
  * extern “C”
  */

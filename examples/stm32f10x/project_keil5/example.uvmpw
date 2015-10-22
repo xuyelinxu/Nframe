@@ -9,6 +9,7 @@
 
   <project>
     <PathAndName>.\nfdebug_example\nfdebug_example.uvproj</PathAndName>
+    <NodeIsExpanded>1</NodeIsExpanded>
   </project>
 
   <project>

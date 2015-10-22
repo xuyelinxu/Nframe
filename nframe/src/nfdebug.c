@@ -13,6 +13,22 @@
 
 #include <string.h>
 
+////#pragma import(__use_no_semihosting)
+//_sys_exit(int x)
+//{
+//x = x;
+//}
+//struct __FILE
+//{
+//int handle;
+///* Whatever you require here. If the only file you are using is */
+///* standard output using printf() for debugging, no file handling */
+///* is required. */
+//};
+///* FILE is typedef?d in stdio.h. */
+//FILE __stdout;
+////FILE __stdin;
+
 #ifdef __GNUC__
 
 /* With GCC/RAISONANCE, small printf (option LD Linker->Libraries->Small printf
@@ -131,7 +147,7 @@ void NFDEBUG_Run (void)
     #ifdef NFDEBUG_COMMAND_ENABLE
     char ch;
 
-    if((ch=rxdQueueOut()) != '\0'){
+    while((ch=rxdQueueOut()) != '\0'){
 
         //NFDEBUG_("%c,%d,%d", ch, rxdQueueFront, rxdQueueRear);
 

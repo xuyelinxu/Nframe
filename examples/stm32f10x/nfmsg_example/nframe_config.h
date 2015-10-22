@@ -52,7 +52,6 @@ extern "C" {
 /**< \brief 命令接收缓存区大小 */
 #define NFDEBUG_COMMAND_BUFFER_SIZE     200
 
-
 /**< \brief 最大调试命令参数数量 */
 #define NFDEBUG_COMMAND_PARM_MAX        10
 
@@ -68,6 +67,9 @@ extern "C" {
 
 /**< \brief 消息队列长度 */
 #define NFMSG_QUEUE_LENGTH 50
+
+/**< \brief 消息缓存区长度 */
+#define NFMSG_MSGBUFFER_LENGTH 200
 
 typedef enum {
     /* NFrame内部消息类型 */
@@ -121,9 +123,32 @@ void NFDEBUG_SendChar (uint8_t ch)
 
 }
 
+/**
+* \brief 请根据当前硬件情况编写
+*/
+
+/**
+* \brief 开全局中断
+*/
+__inline
+void NFRAME_InterruptEnable(void)
+{
+    __set_PRIMASK(0);
+}
+
+/**
+* \brief 关全局中断
+*/
+__inline
+void NFRAME_InterruptDisable(void)
+{
+    __set_PRIMASK(1);
+}
+
 void NFTASK_TimerInit (void);
 
 void NFDEBUG_HardwareInit(void);
+
 
 /*******************************************************************************
  * extern “C”

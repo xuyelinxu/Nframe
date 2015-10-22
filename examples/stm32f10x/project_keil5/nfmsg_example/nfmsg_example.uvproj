@@ -361,7 +361,7 @@
               <MiscControls></MiscControls>
               <Define>USE_STDPERIPH_DRIVER, STM32F10X_HD</Define>
               <Undefine></Undefine>
-              <IncludePath>..\..\library\CMSIS;..\..\library\stm32f10x;..\..\library\STM32F10x_StdPeriph_Driver\inc;..\..\..\..\nframe\inc;..\..\nftask_example</IncludePath>
+              <IncludePath>..\..\library\CMSIS;..\..\library\stm32f10x;..\..\library\STM32F10x_StdPeriph_Driver\inc;..\..\..\..\nframe\inc;..\..\nfmsg_example</IncludePath>
             </VariousControls>
           </Cads>
           <Aads>
@@ -468,6 +468,11 @@
               <FileName>nfmsg.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\..\..\..\nframe\src\nfmsg.c</FilePath>
+            </File>
+            <File>
+              <FileName>nftask.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\..\..\nframe\src\nftask.c</FilePath>
             </File>
           </Files>
         </Group>

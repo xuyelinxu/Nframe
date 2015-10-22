@@ -125,6 +125,9 @@ void NFTASK_TimerInit (void);
 
 void NFDEBUG_HardwareInit(void);
 
+void NFRAME_InterruptENABLE(void);
+void NFRAME_InterruptDISABLE(void);
+
 /*******************************************************************************
  * extern “C”
  */

@@ -19,6 +19,7 @@ extern "C" {
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdint.h>
+#include <string.h>
 
 #include "nframe_config.h"
 
@@ -67,7 +68,7 @@ typedef unsigned char BOOLEAN;              /**< \brief BOOLEAN */
 /** \brief 把宏展开后的结果转换为字符串 */
 #define NF_XSTR(s)              AM_STR(s)
 
-#ifdef NFCONFIG_NFMEM   /* 使用内存管理模块 */
+#ifdef NFMEM_ENABLE   /* 使用内存管理模块 */
 
     /** \brief 申请内存 */
     #define NF_MALLOC(size)  ( NFMEM_Malloc(size) )
