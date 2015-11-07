@@ -44,11 +44,11 @@ extern "C" {
 //#define NFRAME_Run()    NFTASK_Run()
 //
 ///** @} */
- 
+
 #include "nfdebug.h"
 #include "nftask.h"
 #include "nfmsg.h"
-//#include "nffsm.h"
+#include "nffsm.h"
 //#include "nfmem.h"
 
 /** Exported Functions -------------------------------------------------------*/
