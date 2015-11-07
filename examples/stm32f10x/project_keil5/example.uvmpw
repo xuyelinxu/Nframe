@@ -9,7 +9,6 @@
 
   <project>
     <PathAndName>.\nfdebug_example\nfdebug_example.uvproj</PathAndName>
-    <NodeIsExpanded>1</NodeIsExpanded>
   </project>
 
   <project>
@@ -18,6 +17,10 @@
 
   <project>
     <PathAndName>.\nfmsg_example\nfmsg_example.uvproj</PathAndName>
+  </project>
+
+  <project>
+    <PathAndName>.\nffsm_example\nffsm_example.uvproj</PathAndName>
     <NodeIsActive>1</NodeIsActive>
     <NodeIsExpanded>1</NodeIsExpanded>
   </project>

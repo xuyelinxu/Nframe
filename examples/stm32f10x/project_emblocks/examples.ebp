@@ -197,12 +197,16 @@
 			<Option compilerVar="ASM" />
 		</Unit>
 		<Unit filename="..\..\..\nframe\inc\nfdebug.h" />
+		<Unit filename="..\..\..\nframe\inc\nffsm.h" />
 		<Unit filename="..\..\..\nframe\inc\nfmsg.h" />
 		<Unit filename="..\..\..\nframe\inc\nframe.h" />
 		<Unit filename="..\..\..\nframe\inc\nframe_common.h" />
 		<Unit filename="..\..\..\nframe\inc\nframe_config.h" />
 		<Unit filename="..\..\..\nframe\inc\nftask.h" />
 		<Unit filename="..\..\..\nframe\src\nfdebug.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="..\..\..\nframe\src\nffsm.c">
 			<Option compilerVar="CC" />
 		</Unit>
 		<Unit filename="..\..\..\nframe\src\nfmsg.c">
