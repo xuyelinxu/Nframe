@@ -45,6 +45,7 @@ void sendMsg(void)
     static uint16_t i=0;
     NFMSG_MsgPackDef pack;
 
+    NFDEBUG_("");
     NFDEBUG_("NFMSG EXAMPLE");
 
     pack.pTarget = &myMsgPoint;
@@ -74,7 +75,7 @@ int main(void)
     /* 设置每隔1s 向消息点myPointHandle  发送消息 */
     taskSetup.Function          = sendMsg;
     taskSetup.NFTASK_Time_Unit  = NFTASK_TIME_UNIT_MS;
-    taskSetup.Time              = 1000;
+    taskSetup.Time              = 100;
     NFTASK_Setup(&taskSetup, NFTASK_TYPE_TIMINGINT);
 
     while(1)

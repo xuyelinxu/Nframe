@@ -15,7 +15,9 @@
 */
 void test_func(void)
 {
-    NFDEBUG("test_func");
+    static uint16_t i=0;
+    NFDEBUG_("");
+    NFDEBUG("test_func %d", i++);
 }
 
 /**
