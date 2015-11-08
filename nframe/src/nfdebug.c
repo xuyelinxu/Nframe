@@ -40,7 +40,7 @@
 
 #ifdef NFDEBUG_COMMAND_ENABLE
 
-extern NFDEBUG_CommandDef NFDEBUG_CommandList[NFDEBUG_COMMANDLIST_SIZE];
+extern NFDEBUG_CommandDef NFDEBUG_CommandList;
 static char rxdBuffer[NFDEBUG_COMMAND_BUFFER_SIZE];
 static uint16_t rxdBufferTop = 0;
 
@@ -97,19 +97,24 @@ char rxdQueueOut()
     return ret;
 }
 
+
 static
 void command_deal(char *cmdStr)
 {
-    uint8_t i,j,parmCount,parmsLength;
+    uint8_t i,j,parmCount,parmsLength,CommandNum;
     char *pStrParms,*(parms[NFDEBUG_COMMAND_PARM_MAX]);
+    NFDEBUG_CommandItemDef *CommandItems;
 
-    for(i = 0; i<NFDEBUG_COMMANDLIST_SIZE; i++){    /* Search Command */
-        if(strncasecmp( (const char *)(NFDEBUG_CommandList[i].CommandStr),
+    CommandNum   = NFDEBUG_CommandList.CommandNum;
+    CommandItems = NFDEBUG_CommandList.CommandItems;
+
+    for(i = 0; i<CommandNum; i++){  /* Search Command */
+        if(strncasecmp( (const char *)(CommandItems[i].CommandStr),
                         cmdStr,
-                        NFDEBUG_CommandList[i].CommandStrLength) == 0){
+                        CommandItems[i].CommandStrLength) == 0){
 
 
-            pStrParms = cmdStr + NFDEBUG_CommandList[i].CommandStrLength;
+            pStrParms = cmdStr + CommandItems[i].CommandStrLength;
             parmsLength = strlen(pStrParms);
 
             parms[0] = pStrParms;
@@ -132,7 +137,7 @@ void command_deal(char *cmdStr)
             }
 
             /* call user's command deal func */
-            NFDEBUG_CommandList[i].CommandDealFunc(parmCount, parms);
+            CommandItems[i].CommandDealFunc(parmCount, parms);
 
             break;
         }   /* if */
