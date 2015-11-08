@@ -47,16 +47,13 @@ extern "C" {
 
 
 /**< \brief 开启DEBUG命令功能 */
-//#define NFDEBUG_COMMAND_ENABLE
+#define NFDEBUG_COMMAND_ENABLE
 
 /**< \brief 命令接收缓存区大小 */
 #define NFDEBUG_COMMAND_BUFFER_SIZE     200
 
 /**< \brief 最大调试命令参数数量 */
 #define NFDEBUG_COMMAND_PARM_MAX        10
-
-/**< \brief DEBUG命令数量 */
-#define NFDEBUG_COMMANDLIST_SIZE        1
 
 /** @} */
 
@@ -70,15 +67,6 @@ extern "C" {
 
 /**< \brief 消息缓存区长度 */
 #define NFMSG_MSGBUFFER_LENGTH 200
-
-typedef enum {
-    /* NFrame内部消息类型 */
-    _NFMSG_TYPE_NONE,               /**< \brief 空消息 */
-
-    /* 用户消息类型 */
-    NFMSG_TYPE_GENERAL,             /**< \brief 通用消息 */
-
-} NFMSG_Type_Enum;      /**< \brief 消息类型枚举 */
 
 /** @} */
 

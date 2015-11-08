@@ -22,15 +22,12 @@ extern "C" {
 
 /* Exported Functions --------------------------------------------------------*/
 
-typedef enum
-{
-    NFFSM_MSGTYPE_STATE_INTO,
-    NFFSM_MSGTYPE_STATE_OUT,
-    NFFSM_MSGTYPE_USERMSG,
-} NFFSM_MSGTYPE;    /** \brief FSM用户状态输入消息类型定义 */
+/** \brief FSM用户状态输入消息类型定义 */
+#define NFFSM_MSGTYPE_STATE_INTO    0xFE
+#define NFFSM_MSGTYPE_STATE_OUT     0xFF
 
 /** \brief FSM状态定义 */
-typedef void (*NFFSM_STATE)(NFFSM_MSGTYPE msgType ,void *msg);
+typedef void (*NFFSM_STATE)(uint8_t msgType ,void *msg);
 
 typedef struct
 {
@@ -57,9 +54,9 @@ void NFFSM_StateTran(NFFSM *fsm, NFFSM_STATE targetState)
 
 /** \brief FSM用户消息输入 */
 NF_INLINE
-void NFFSM_MsgIn(NFFSM *fsm, void *sig)
+void NFFSM_MsgIn(NFFSM *fsm, uint8_t msgType ,void *sig)
 {
-    fsm->MyState(NFFSM_MSGTYPE_USERMSG, sig);
+    fsm->MyState(msgType, sig);
 }
 
 /**
