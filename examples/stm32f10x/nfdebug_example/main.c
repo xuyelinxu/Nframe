@@ -14,7 +14,7 @@
 void Command_test (uint8_t ParmCount, char **Parm);
 
 /**< \brief DEBUG命令配置 */
-NFDEBUG_CommandDef NFDEBUG_CommandList[] =
+NFDEBUG_COMMAND_LIST(1)
 {
     {Command_test, 5, "test "}
 };
