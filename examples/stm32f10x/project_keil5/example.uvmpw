@@ -22,6 +22,10 @@
   <project>
     <PathAndName>.\nffsm_example\nffsm_example.uvproj</PathAndName>
     <NodeIsActive>1</NodeIsActive>
+  </project>
+
+  <project>
+    <PathAndName>.\nkeyscan_example\nkeyscan_example.uvproj</PathAndName>
     <NodeIsExpanded>1</NodeIsExpanded>
   </project>
 

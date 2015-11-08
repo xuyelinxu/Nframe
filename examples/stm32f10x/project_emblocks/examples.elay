@@ -1,39 +1,59 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
 <EmBlocks_layout_file>
 	<ActiveTarget name="Debug" />
-	<File name="..\nfdebug_example\main.c" open="1" top="0" tabpos="2" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+	<File name="..\..\..\component\inc\nkeyscan.h" open="1" top="1" tabpos="1" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="947" topLine="30" />
+			<Cursor1 position="1040" topLine="19" />
+		</Cursor>
+	</File>
+	<File name="..\..\..\component\src\nkeyscan.c" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="945" topLine="0" />
+		</Cursor>
+	</File>
+	<File name="..\nfdebug_example\main.c" open="0" top="0" tabpos="2" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="989" topLine="41" />
 		</Cursor>
 	</File>
 	<File name="..\nfdebug_example\nframe_config.c" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="3235" topLine="96" />
+			<Cursor1 position="3061" topLine="0" />
 		</Cursor>
 	</File>
 	<File name="..\nfdebug_example\nframe_config.h" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="2149" topLine="56" />
+			<Cursor1 position="1876" topLine="33" />
 		</Cursor>
 	</File>
-	<File name="..\nffsm_example\main.c" open="1" top="0" tabpos="3" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+	<File name="..\nffsm_example\main.c" open="0" top="0" tabpos="3" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="2418" topLine="57" />
+			<Cursor1 position="945" topLine="0" />
+		</Cursor>
+	</File>
+	<File name="..\nffsm_example\nframe_config.c" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="4123" topLine="23" />
+		</Cursor>
+	</File>
+	<File name="..\nffsm_example\nframe_config.h" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="1850" topLine="41" />
 		</Cursor>
 	</File>
 	<File name="..\nfmsg_example\main.c" open="0" top="0" tabpos="3" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="1483" topLine="56" />
+			<Cursor1 position="601" topLine="0" />
 		</Cursor>
 	</File>
 	<File name="..\nfmsg_example\nframe_config.c" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="2115" topLine="57" />
+			<Cursor1 position="2340" topLine="57" />
 		</Cursor>
 	</File>
 	<File name="..\nfmsg_example\nframe_config.h" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="1182" topLine="60" />
+			<Cursor1 position="2009" topLine="49" />
 		</Cursor>
 	</File>
 	<File name="..\nftask_example\main.c" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
@@ -48,42 +68,62 @@
 	</File>
 	<File name="..\nftask_example\nframe_config.h" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="1083" topLine="29" />
+			<Cursor1 position="2003" topLine="69" />
 		</Cursor>
 	</File>
-	<File name="..\..\..\nframe\inc\nffsm.h" open="1" top="0" tabpos="4" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+	<File name="..\nkeyscan_example\main.c" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="826" topLine="1" />
+			<Cursor1 position="690" topLine="2" />
+		</Cursor>
+	</File>
+	<File name="..\nkeyscan_example\nframe_config.c" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="579" topLine="3" />
+		</Cursor>
+	</File>
+	<File name="..\nkeyscan_example\nframe_config.h" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="1487" topLine="42" />
+		</Cursor>
+	</File>
+	<File name="..\..\..\nframe\inc\nffsm.h" open="0" top="0" tabpos="4" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="858" topLine="18" />
 		</Cursor>
 	</File>
 	<File name="..\..\..\nframe\inc\nfmsg.h" open="0" top="0" tabpos="1" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="590" topLine="0" />
+			<Cursor1 position="1231" topLine="19" />
 		</Cursor>
 	</File>
-	<File name="..\..\..\nframe\inc\nframe.h" open="1" top="1" tabpos="1" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+	<File name="..\..\..\nframe\inc\nframe.h" open="0" top="0" tabpos="1" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="1387" topLine="39" />
+			<Cursor1 position="1513" topLine="39" />
 		</Cursor>
 	</File>
 	<File name="..\..\..\nframe\inc\nftask.h" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="1428" topLine="10" />
+			<Cursor1 position="717" topLine="0" />
+		</Cursor>
+	</File>
+	<File name="..\..\..\nframe\src\nfdebug.c" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="4680" topLine="2" />
 		</Cursor>
 	</File>
 	<File name="..\..\..\nframe\src\nffsm.c" open="0" top="0" tabpos="2" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="634" topLine="0" />
+			<Cursor1 position="193" topLine="0" />
 		</Cursor>
 	</File>
 	<File name="..\..\..\nframe\src\nfmsg.c" open="0" top="0" tabpos="2" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="5243" topLine="177" />
+			<Cursor1 position="924" topLine="0" />
 		</Cursor>
 	</File>
 	<File name="..\..\..\nframe\src\nftask.c" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="660" topLine="2" />
+			<Cursor1 position="1092" topLine="6" />
 		</Cursor>
 	</File>
 </EmBlocks_layout_file>

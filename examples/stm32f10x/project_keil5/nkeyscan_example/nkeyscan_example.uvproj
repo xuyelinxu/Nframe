@@ -361,7 +361,7 @@
               <MiscControls></MiscControls>
               <Define>USE_STDPERIPH_DRIVER, STM32F10X_HD</Define>
               <Undefine></Undefine>
-              <IncludePath>..\..\library\CMSIS;..\..\library\stm32f10x;..\..\library\STM32F10x_StdPeriph_Driver\inc;..\..\user;..\..\..\..\nframe\inc;..\..\nffsm_example;..\..\..\..\component\inc</IncludePath>
+              <IncludePath>..\..\library\CMSIS;..\..\library\stm32f10x;..\..\library\STM32F10x_StdPeriph_Driver\inc;..\..\user;..\..\..\..\nframe\inc;..\..\..\..\component\inc</IncludePath>
             </VariousControls>
           </Cads>
           <Aads>
@@ -467,22 +467,27 @@
           </Files>
         </Group>
         <Group>
-          <GroupName>nffsm_example</GroupName>
+          <GroupName>nkeyscan</GroupName>
+          <Files>
+            <File>
+              <FileName>nkeyscan.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\..\..\component\src\nkeyscan.c</FilePath>
+            </File>
+          </Files>
+        </Group>
+        <Group>
+          <GroupName>user</GroupName>
           <Files>
             <File>
               <FileName>main.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\nffsm_example\main.c</FilePath>
+              <FilePath>..\..\nkeyscan_example\main.c</FilePath>
             </File>
             <File>
               <FileName>nframe_config.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\nffsm_example\nframe_config.c</FilePath>
-            </File>
-            <File>
-              <FileName>nframe_config.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>..\..\nffsm_example\nframe_config.h</FilePath>
+              <FilePath>..\..\nkeyscan_example\nframe_config.c</FilePath>
             </File>
           </Files>
         </Group>

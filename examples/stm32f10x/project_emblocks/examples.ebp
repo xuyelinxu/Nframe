@@ -71,6 +71,10 @@
 			<Add option="-eb_start_files" />
 			<Add option="-eb_lib=n" />
 		</Linker>
+		<Unit filename="..\..\..\component\inc\nkeyscan.h" />
+		<Unit filename="..\..\..\component\src\nkeyscan.c">
+			<Option compilerVar="CC" />
+		</Unit>
 		<Unit filename="..\library\CMSIS\core_cm3.c">
 			<Option compilerVar="CC" />
 		</Unit>
@@ -200,6 +204,13 @@
 			<Option compilerVar="CC" />
 		</Unit>
 		<Unit filename="..\nftask_example\nframe_config.h" />
+		<Unit filename="..\nkeyscan_example\main.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="..\nkeyscan_example\nframe_config.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="..\nkeyscan_example\nframe_config.h" />
 		<Unit filename="..\startup_armgcc\startup_stm32f10x_hd.s">
 			<Option compilerVar="ASM" />
 		</Unit>
