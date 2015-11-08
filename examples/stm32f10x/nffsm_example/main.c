@@ -7,6 +7,14 @@
 *        用户向串口传入"shot#"时, 剩有子弹时传回"POM!"; 无子弹时传回"KA.."
 *        用户向串口传入"load#"时, 填充子弹, 传回"load complete."
 *
+*                                               <------------
+*                                              |             |
+*           b2 ---(shot)---> b1 ---(shot)---> b0  ---(shot)---
+*           |                 |                |
+*           ^              (load)           (load)
+*           |                 |                |
+*            --------<----------------<--------
+*
 *        NFFSM_Init()           初始化NFFSM
 *        NFFSM_StateTran()      状态转换
 *        NFFSM_MsgIn()          消息传入
