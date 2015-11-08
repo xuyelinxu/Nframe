@@ -33,7 +33,7 @@ typedef NFMSG_CallbackMsg (*NFMSG_MsgHandlerFunc)(NFMSG_MsgPackDef  *pMsgPack);
 
 typedef struct {
      NFMSG_MsgHandlerFunc   pfnHandler;     /**< \brief 消息处理函数指针 */
-     NFMSG_Type_Enum        MsgType;        /**< \brief 处理的消息类型 */
+     uint8_t                MsgType;        /**< \brief 处理的消息类型 */
 } NFMSG_MsgHandlerDef;        /**< \brief 消息处理者 结构体定义 */
 
 typedef struct{
@@ -45,7 +45,7 @@ struct NFMSG_MsgPackDef{
     NFMSG_MsgPointDef    *pSender;         /**< \brief 发送方 消息点句柄 */
     NFMSG_MsgPointDef    *pTarget;         /**< \brief 接收方 消息点句柄 */
 
-    NFMSG_Type_Enum         MsgType;        /**< \brief 消息类型 */
+    uint8_t                 MsgType;        /**< \brief 消息类型 */
     intptr_t                MsgSize;        /**< \brief 消息大小 */
     void                   *pMsg;           /**< \brief 消息 */
 

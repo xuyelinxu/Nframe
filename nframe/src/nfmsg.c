@@ -27,9 +27,9 @@ static volatile uint32_t            msgBufferStartIndex = 0;
 static volatile uint32_t            msgBufferEndIndex = 0;
 
 /** Private function prototypes ---------------------------------------------**/
-void runMsgHandler(NFMSG_MsgPackDef *pMsgPack);
-BOOLEAN msgQueueAdd(NFMSG_MsgPackDef *msg);
-NFMSG_MsgPackDef *msgQueueDequeue(void);
+static void runMsgHandler(NFMSG_MsgPackDef *pMsgPack);
+static BOOLEAN msgQueueAdd(NFMSG_MsgPackDef *msg);
+static NFMSG_MsgPackDef *msgQueueDequeue(void);
 
 /** Private functions -------------------------------------------------------**/
 
@@ -45,19 +45,19 @@ void *msgBufferMalloc(uint32_t len)
 
     if(msgBufferStartIndex <= msgBufferEndIndex){
         if(NFMSG_MSGBUFFER_LENGTH-msgBufferEndIndex >= len){
-            ptr = msgBuffer+msgBufferEndIndex;
+            ptr = (uint8_t*)(msgBuffer+msgBufferEndIndex);
             msgBufferEndIndex += len;
         }
         else{
             if(msgBufferStartIndex > len){
-                ptr = msgBuffer;
+                ptr = (uint8_t*)msgBuffer;
                 msgBufferEndIndex = len;
             }
         }
     }
     else{
         if(msgBufferEndIndex+len < msgBufferStartIndex){
-            ptr = msgBuffer+msgBufferEndIndex;
+            ptr = (uint8_t*)(msgBuffer+msgBufferEndIndex);
             msgBufferEndIndex += len;
         }
     }

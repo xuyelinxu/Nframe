@@ -11,8 +11,14 @@
 #include "stm32f10x.h"
 #include "nframe.h"
 
+typedef enum {
+    MSG_TYPE_NONE,               /**< \brief 空消息 */
+    MSG_TYPE_GENERAL,             /**< \brief 通用消息 */
+
+} MSG_Type_Enum;      /**< \brief 消息类型枚举 */
+
 NFMSG_CallbackMsg myMsgHandlerFunc(NFMSG_MsgPackDef  *pMsgPack);
-static NFMSG_MsgHandlerDef myMsgHandlers[] = { {myMsgHandlerFunc, NFMSG_TYPE_GENERAL} };
+static NFMSG_MsgHandlerDef myMsgHandlers[] = { {myMsgHandlerFunc, MSG_TYPE_GENERAL} };
 static NFMSG_MsgPointDef myMsgPoint = { 1, myMsgHandlers};
 
 /**
@@ -52,7 +58,7 @@ void sendMsg(void)
     pack.pfnCallback = myCallbackFunc;
     pack.pMsg = &i;
     pack.MsgSize = sizeof(NFMSG_MsgPackDef);
-    pack.MsgType = NFMSG_TYPE_GENERAL;
+    pack.MsgType = MSG_TYPE_GENERAL;
 
     if(!NFMSG_SendMsg(&pack, FALSE)){
         NFDEBUG_("Send Msg Error");
