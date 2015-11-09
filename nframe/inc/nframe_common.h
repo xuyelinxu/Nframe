@@ -32,7 +32,6 @@ extern "C" {
 
 typedef unsigned char BOOLEAN;              /**< \brief BOOLEAN */
 
-
 #ifndef FALSE
 #define FALSE            0              /**< \brief false */
 #endif
@@ -43,6 +42,10 @@ typedef unsigned char BOOLEAN;              /**< \brief BOOLEAN */
 
 #ifndef NULL
 #define NULL             ((void *)0)    /**< \brief 空指针           */
+#endif
+
+#ifndef _BV(n)
+#define _BV(n) (1<<n)
 #endif
 
 /** @} */
