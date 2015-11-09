@@ -32,7 +32,7 @@ int main(void)
     taskSetup.Function          = test_func;
     taskSetup.NFTASK_Time_Unit  = NFTASK_TIME_UNIT_MS;
     taskSetup.Time              = 1000;
-    NFTASK_Setup(&taskSetup, NFTASK_TYPE_TIMING);
+    NFTASK_Add(&taskSetup, NFTASK_TYPE_TIMING);
 
     while(1)
     {
