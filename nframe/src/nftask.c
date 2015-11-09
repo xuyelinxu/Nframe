@@ -67,7 +67,7 @@ void NFTASK_Isr(void)
 * \retval ture      成功
 */
 static
-BOOLEAN item_add (Items *items, NFTASK_SetupTypeDef *setupStruct)
+BOOLEAN item_add (Items *items, NFTASK_TaskTypeDef *setupStruct)
 {
     Item *ptr;
 
@@ -194,7 +194,7 @@ void excuteFunctions (Items items, BOOLEAN direct)
 * \retval false     失败
 * \retval ture      成功
 */
-BOOLEAN NFTASK_Add (    NFTASK_SetupTypeDef  *NFTASK_SetupStruct,
+BOOLEAN NFTASK_Add (    NFTASK_TaskTypeDef  *NFTASK_SetupStruct,
                         NFTASK_Type_Enum      NFTASK_TYPE   )
 {
     BOOLEAN retval;
