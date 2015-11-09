@@ -44,7 +44,7 @@ typedef unsigned char BOOLEAN;              /**< \brief BOOLEAN */
 #define NULL             ((void *)0)    /**< \brief 空指针           */
 #endif
 
-#ifndef _BV(n)
+#ifndef _BV
 #define _BV(n) (1<<n)
 #endif
 

@@ -74,7 +74,7 @@ void sendMsg(void)
 */
 int main(void)
 {
-    NFTASK_SetupTypeDef taskSetup;
+    NFTASK_TaskTypeDef taskSetup;
 
     NFRAME_Init();      /* NFrame初始化 */
 

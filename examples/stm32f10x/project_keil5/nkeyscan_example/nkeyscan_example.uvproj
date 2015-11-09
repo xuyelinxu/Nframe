@@ -361,7 +361,7 @@
               <MiscControls></MiscControls>
               <Define>USE_STDPERIPH_DRIVER, STM32F10X_HD</Define>
               <Undefine></Undefine>
-              <IncludePath>..\..\library\CMSIS;..\..\library\stm32f10x;..\..\library\STM32F10x_StdPeriph_Driver\inc;..\..\user;..\..\..\..\nframe\inc;..\..\..\..\component\inc</IncludePath>
+              <IncludePath>..\..\library\CMSIS;..\..\library\stm32f10x;..\..\library\STM32F10x_StdPeriph_Driver\inc;..\..\user;..\..\..\..\nframe\inc;..\..\..\..\component\inc;..\..\nkeyscan_example</IncludePath>
             </VariousControls>
           </Cads>
           <Aads>
