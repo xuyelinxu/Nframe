@@ -51,9 +51,12 @@ typedef enum {
 /** Exported functions -------------------------------------------------------*/
 
 void NFTASK_Run(void);
-uint8_t NFTASK_Setup (  NFTASK_SetupTypeDef  *NFTASK_SetupStruct,
+
+uint8_t NFTASK_Add(     NFTASK_SetupTypeDef  *NFTASK_SetupStruct,
                         NFTASK_Type_Enum      NFTASK_TYPE   );
-uint8_t NFTASK_SetupDelete (NFTASK_Function pfunc, NFTASK_Type_Enum NFTASK_TYPE);
+
+uint8_t NFTASK_Del(NFTASK_Function pfunc, NFTASK_Type_Enum NFTASK_TYPE);
+
 void NFTASK_Isr(void);
 
 #endif  /* _NFTASK_H_ */

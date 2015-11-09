@@ -194,7 +194,7 @@ void excuteFunctions (Items items, BOOLEAN direct)
 * \retval false     失败
 * \retval ture      成功
 */
-BOOLEAN NFTASK_Setup (  NFTASK_SetupTypeDef  *NFTASK_SetupStruct,
+BOOLEAN NFTASK_Add (    NFTASK_SetupTypeDef  *NFTASK_SetupStruct,
                         NFTASK_Type_Enum      NFTASK_TYPE   )
 {
     BOOLEAN retval;
@@ -232,7 +232,7 @@ BOOLEAN NFTASK_Setup (  NFTASK_SetupTypeDef  *NFTASK_SetupStruct,
 * \retval false     失败
 * \retval ture      成功
 */
-BOOLEAN NFTASK_SetupDelete (NFTASK_Function pfunc, NFTASK_Type_Enum NFTASK_TYPE)
+BOOLEAN NFTASK_Del (NFTASK_Function pfunc, NFTASK_Type_Enum NFTASK_TYPE)
 {
     BOOLEAN retval;  /* 返回值 */
 
