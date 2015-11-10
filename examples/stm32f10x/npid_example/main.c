@@ -1,10 +1,10 @@
 /**
 * \file main.c
-* \brief 部件 NKEYSCAN 实例
+* \brief 部件 NPID 实例....暂时没想到怎么做
 *
 * \internal
 * \par Modification history
-* - 1.00 2015-11-08 noodlefighter, first implementation
+* - 1.00 2015-11-10 noodlefighter, first implementation
 * \endinternal
 */
 #include "nframe.h"
@@ -21,10 +21,7 @@ int main (void)
     NFRAME_Init();      /* NFrame初始化 */
 
     NFDEBUG_("");
-    NFDEBUG_("DEMO OF COMPONENT NKEYSCAN");
-    NFDEBUG_("");
-    NFDEBUG_("Link your 8pin matrix keyboard to PORTA pin0-7");
-    NFDEBUG_("Independent keys to PORTC pin0-3");
+    NFDEBUG_("DEMO OF COMPONENT nPID");
     NFDEBUG_("");
 
     KEYBOARD_Init();

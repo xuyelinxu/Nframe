@@ -75,6 +75,11 @@
 		<Unit filename="..\..\..\component\src\nkeyscan.c">
 			<Option compilerVar="CC" />
 		</Unit>
+		<Unit filename="..\..\..\component\src\npid.c">
+			<Option compilerVar="CC" />
+			<Option target="&lt;{~None~}&gt;" />
+		</Unit>
+		<Unit filename="..\..\..\component\src\npid.h" />
 		<Unit filename="..\library\CMSIS\core_cm3.c">
 			<Option compilerVar="CC" />
 		</Unit>
@@ -216,6 +221,13 @@
 			<Option compilerVar="CC" />
 		</Unit>
 		<Unit filename="..\nkeyscan_example\nframe_config.h" />
+		<Unit filename="..\npid_example\main.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="..\npid_example\nframe_config.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="..\npid_example\nframe_config.h" />
 		<Unit filename="..\startup_armgcc\startup_stm32f10x_hd.s">
 			<Option compilerVar="ASM" />
 		</Unit>
