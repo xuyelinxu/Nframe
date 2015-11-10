@@ -22,20 +22,20 @@
 /* 矩阵键盘扫描程序 */
 void NKEYSCAN_MODE_MATRIX(NKEYSCAN *nKEYSCAN)
 {
-    uint8_t row=0,col=0;
+    uint8_t row,col;
     uint8_t num;
     uint32_t colData;
     NKEYSCAN_STORAGE *storageArea = nKEYSCAN->StorageArea;
 
 
-    for(; row < nKEYSCAN->NumRow ; row++){      /* 行扫描 逐行拉低 */
+    for(row=0; row < nKEYSCAN->NumRow ; row++){      /* 行扫描 逐行拉低 */
         nKEYSCAN->WriteRowIo(nKEYSCAN, ~(_BV(row)));      /* 拉低row电平 */
         colData = nKEYSCAN->ReadColIo(nKEYSCAN);        /* 读取col电平 */
 
-        for(; col < nKEYSCAN->NumCol ; col++){
+        for(col=0; col < nKEYSCAN->NumCol ; col++){
             num = row*(nKEYSCAN->NumCol) + col;
 
-            if((~colData)&_BV(1)){     /* col 此位被拉低 */
+            if((~colData)&_BV(0)){     /* col 此位被拉低 */
 
                 if(storageArea[num] < nKEYSCAN->JitterTime){
                     storageArea[num]++;         /* 自加 直到超过抖动时间 */
@@ -50,7 +50,7 @@ void NKEYSCAN_MODE_MATRIX(NKEYSCAN *nKEYSCAN)
             }
             else{                   /* col 此位电平为高 */
                 if(storageArea[num] == 0xFF){     /* 弹起动作 */
-                    nKEYSCAN->KeyDownFunc(nKEYSCAN, num);
+                    nKEYSCAN->KeyUpFunc(nKEYSCAN, num);
                     storageArea[num] = 0;
                 }
             }
@@ -69,7 +69,7 @@ void NKEYSCAN_MODE_SINGLE(NKEYSCAN *nKEYSCAN)
     NKEYSCAN_STORAGE *storageArea = nKEYSCAN->StorageArea;
 
     while(i< nKEYSCAN->KeyNum){
-        if(ioData&_BV(1)){      /* 按键电平为高 */
+        if((~ioData)&_BV(0)){      /* 按键电平为低 */
             if(storageArea[i] < nKEYSCAN->JitterTime){
                 storageArea[i]++;               /* 自加 直到超过抖动时间 */
             }
@@ -81,9 +81,9 @@ void NKEYSCAN_MODE_SINGLE(NKEYSCAN *nKEYSCAN)
                 storageArea[i] = 0xFF;
             }
         }
-        else{                   /* 按键电平为低 */
+        else{                   /* 按键电平为高 */
             if(storageArea[i] == 0xFF){     /* 弹起动作 */
-                nKEYSCAN->KeyDownFunc(nKEYSCAN, i);
+                nKEYSCAN->KeyUpFunc(nKEYSCAN, i);
                 storageArea[i] = 0;
             }
         }

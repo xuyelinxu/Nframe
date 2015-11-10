@@ -47,13 +47,13 @@ const char keymap_matrix[] = {
     '0',
     '.',
     '/'
-}
+};
 
 static NKEYSCAN matrixKB;       /* 矩阵键盘 */
 static NKEYSCAN singleKB;        /* 单独按键 */
 
-static NKEYSCAN_STORAGE matrixKB_storeArea;
-static NKEYSCAN_STORAGE singleKB_storeArea;
+static NKEYSCAN_STORAGE matrixKB_storeArea[16];
+static NKEYSCAN_STORAGE singleKB_storeArea[4];
 /** Private function prototypes ---------------------------------------------**/
 uint32_t readColIo(NKEYSCAN *nKEYSCAN);
 void writeRowIo(NKEYSCAN *nKEYSCAN, uint32_t ioData);
@@ -85,7 +85,7 @@ void KEYBOARD_Init(void)
     GPIO_InitStructure.GPIO_Pin = SINGLEKB_PORT_PIN;
     GPIO_InitStructure.GPIO_Speed = GPIO_Speed_2MHz;
     GPIO_InitStructure.GPIO_Mode = GPIO_Mode_IPU;
-    GPIO_Init(SINGLE_PORT, &GPIO_InitStructure);
+    GPIO_Init(SINGLEKB_PORT, &GPIO_InitStructure);
 
     /* NKEYSCAN Init */
     matrixKB.Mode           =   NKEYSCAN_MODE_MATRIX;
@@ -101,7 +101,7 @@ void KEYBOARD_Init(void)
     NKEYSCAN_Init(&matrixKB);
 
     singleKB.Mode           =   NKEYSCAN_MODE_SINGLE;
-    singleKB.KeyNum         =   8;                      /* 8颗按键 */
+    singleKB.KeyNum         =   4;                      /* 4颗按键 */
 //  singleKB.NumCol         =   4;                      /* 对独立按键无效 */
 //  singleKB.NumRow         =   4;                      /* 对独立按键无效 */
     singleKB.JitterTime     =   4;                      /* 4*5ms */
@@ -115,21 +115,21 @@ void KEYBOARD_Init(void)
     /* Crate a task of NFTASK */
     taskDef.Function          = scankey;
     taskDef.NFTASK_Time_Unit  = NFTASK_TIME_UNIT_MS;    /* 单位ms */
-    taskDef.Time              = 5000;                   /* 5ms扫描一次 */
+    taskDef.Time              = 5;                      /* 5ms扫描一次 */
     NFTASK_Add(&taskDef, NFTASK_TYPE_TIMING);
 
 }
 
 void KEYBOARD_DeInit(void)
 {
-    NFTASK_Del(test_func, NFTASK_TYPE_TIMING);
+    NFTASK_Del(scankey, NFTASK_TYPE_TIMING);
 }
 
 /* 调用扫描程序 */
 void scankey(void)
 {
-    NKEYSCAN_ScanKey(matrixKB);
-    NKEYSCAN_ScanKey(singleKB);
+    NKEYSCAN_ScanKey(&matrixKB);
+    NKEYSCAN_ScanKey(&singleKB);
 }
 
 
@@ -139,9 +139,10 @@ uint32_t readColIo(NKEYSCAN *nKEYSCAN)
 
     if(nKEYSCAN == &matrixKB){
         ioData = GPIO_ReadInputData(MATRIXKB_PORT);
+        ioData = ioData>>4;
     }
     else if(nKEYSCAN == &singleKB){
-        ioData = GPIO_ReadInputData(MATRIXKB_PORT);
+        ioData = GPIO_ReadInputData(SINGLEKB_PORT);
     }
     else{
         ioData = 0xFFFFFFFF;
@@ -167,7 +168,7 @@ void keyDownAction(NKEYSCAN *nKEYSCAN, uint32_t key)
         keyValue = keymap_matrix[key];
     }
     else if(nKEYSCAN == &singleKB){
-        keyValue = 'A'+ num;
+        keyValue = 'A'+ key;
     }
 
     NFDEBUG_("KeyDown: %c" ,keyValue);
@@ -181,7 +182,7 @@ void keyUpAction(NKEYSCAN *nKEYSCAN, uint32_t key)
         keyValue = keymap_matrix[key];
     }
     else if(nKEYSCAN == &singleKB){
-        keyValue = 'A'+ num;
+        keyValue = 'A'+ key;
     }
 
     NFDEBUG_("KeyUp: %c" ,keyValue);

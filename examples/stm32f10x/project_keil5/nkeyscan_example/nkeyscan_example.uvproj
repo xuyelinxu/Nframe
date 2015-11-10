@@ -464,6 +464,11 @@
               <FileType>1</FileType>
               <FilePath>..\..\..\..\nframe\src\nfdebug.c</FilePath>
             </File>
+            <File>
+              <FileName>nftask.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\..\..\nframe\src\nftask.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
@@ -488,6 +493,11 @@
               <FileName>nframe_config.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\..\nkeyscan_example\nframe_config.c</FilePath>
+            </File>
+            <File>
+              <FileName>keyboard.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\nkeyscan_example\keyboard.c</FilePath>
             </File>
           </Files>
         </Group>

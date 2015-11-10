@@ -70,7 +70,7 @@ void NKEYSCAN_Init(NKEYSCAN *nKEYSCAN)
 }
 
 NF_INLINE
-void NKEYSCAN_ScanKey(NKEYSCAN *nKEYSCAN, uint32_t ioData)
+void NKEYSCAN_ScanKey(NKEYSCAN *nKEYSCAN)
 {
     nKEYSCAN->Mode(nKEYSCAN);
 }
