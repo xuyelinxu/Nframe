@@ -44,13 +44,15 @@ void NKEYSCAN_MODE_MATRIX(NKEYSCAN *nKEYSCAN)
                     /* 无动作 */
                 }
                 else{                               /* 超过抖动时间 按下动作 */
-                    nKEYSCAN->KeyDownFunc(nKEYSCAN, num);
+                    if(nKEYSCAN->KeyDownFunc != NULL)
+                        nKEYSCAN->KeyDownFunc(nKEYSCAN, num);
                     storageArea[num] = 0xFF;
                 }
             }
             else{                   /* col 此位电平为高 */
                 if(storageArea[num] == 0xFF){     /* 弹起动作 */
-                    nKEYSCAN->KeyUpFunc(nKEYSCAN, num);
+                    if(nKEYSCAN->KeyUpFunc != NULL)
+                        nKEYSCAN->KeyUpFunc(nKEYSCAN, num);
                     storageArea[num] = 0;
                 }
             }
@@ -77,13 +79,15 @@ void NKEYSCAN_MODE_SINGLE(NKEYSCAN *nKEYSCAN)
                 /* 无动作 */
             }
             else{                               /* 超过抖动时间 按下动作 */
-                nKEYSCAN->KeyDownFunc(nKEYSCAN, i);
+                if(nKEYSCAN->KeyDownFunc != NULL)
+                    nKEYSCAN->KeyDownFunc(nKEYSCAN, i);
                 storageArea[i] = 0xFF;
             }
         }
         else{                   /* 按键电平为高 */
             if(storageArea[i] == 0xFF){     /* 弹起动作 */
-                nKEYSCAN->KeyUpFunc(nKEYSCAN, i);
+                if(nKEYSCAN->KeyUpFunc != NULL)
+                    nKEYSCAN->KeyUpFunc(nKEYSCAN, i);
                 storageArea[i] = 0;
             }
         }

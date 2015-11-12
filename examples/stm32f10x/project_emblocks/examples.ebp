@@ -80,6 +80,25 @@
 			<Option target="&lt;{~None~}&gt;" />
 		</Unit>
 		<Unit filename="..\..\..\component\src\npid.h" />
+		<Unit filename="..\application_example\app1fsm.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="..\application_example\app1fsm.h" />
+		<Unit filename="..\application_example\keyboard.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="..\application_example\keyboard.h" />
+		<Unit filename="..\application_example\main.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="..\application_example\mainfsm.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="..\application_example\mainfsm.h" />
+		<Unit filename="..\application_example\nframe_config.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="..\application_example\nframe_config.h" />
 		<Unit filename="..\library\CMSIS\core_cm3.c">
 			<Option compilerVar="CC" />
 		</Unit>
